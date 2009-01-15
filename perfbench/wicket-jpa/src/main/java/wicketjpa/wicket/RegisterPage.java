@@ -3,12 +3,12 @@ package wicketjpa.wicket;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
-import org.apache.wicket.markup.html.link.PageLink;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import wicketjpa.entity.User;
@@ -19,7 +19,7 @@ public class RegisterPage extends WebPage {
         add(new RegisterForm("form"));
     }
 
-    private class RegisterForm extends Form {
+    private class RegisterForm extends StatelessForm {
 
         private User user = new User();        
         private FormComponent username;
@@ -35,7 +35,7 @@ public class RegisterPage extends WebPage {
             FormComponent verifyField = new PasswordTextField("verify", new Model(""));
             add(new EditBorder("verifyBorder", verifyField));
             add(new EqualPasswordInputValidator(passwordField, verifyField));
-            add(new PageLink("cancel", HomePage.class));            
+            add(new BookmarkablePageLink("cancel", HomePage.class));
         }
 
         @Override
