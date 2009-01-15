@@ -23,6 +23,7 @@ changes made:
 - removed conversations.xhtml
 - minor re-fomatting and indentation of XML config files, facelets views and java code
 - removed session-timeout config from web.xml
+- changed facelets.DEVELOPMENT param to false in web.xml
 - java code split into 2 packages: seamjpa.entity and seamjpa.seam
 - removed dead / commented code, split some HQL strings to wrap long lines of code for readability
 
