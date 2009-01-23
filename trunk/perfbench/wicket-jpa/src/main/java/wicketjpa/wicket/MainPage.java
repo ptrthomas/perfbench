@@ -103,8 +103,7 @@ public class MainPage extends TemplatePage {
                         if (cancelled != null) {
                             em.remove(cancelled);
                             loadBookings();
-                            getSession().info("Booking cancelled for confirmation number " + booking.getId());
-                            setResponsePage(MainPage.class);
+                            getSession().info("Booking cancelled for confirmation number " + booking.getId());                            
                         }
                     }
                 });
