@@ -11,9 +11,13 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wicketjpa.entity.User;
 
 public class HomePage extends WebPage {
+
+    protected static final Logger logger = LoggerFactory.getLogger(HomePage.class);
 
     public HomePage() {
         add(new LoginForm("form"));
@@ -41,11 +45,13 @@ public class HomePage extends WebPage {
             query.setParameter("password", password.getInput());
             List<User> users = query.getResultList();
             if (users.size() == 0) {
+                logger.error("Login failed");
                 error("Login failed");
                 return;
             }
             User user = users.get(0);
             BookingSession.get().setUser(user);
+            logger.info("Login succeeded");
             getSession().info("Welcome, " + user.getUsername());
             setResponsePage(MainPage.class);
         }        
