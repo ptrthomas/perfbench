@@ -224,9 +224,11 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
             <zipfileset dir="." prefix="perfbench">
                 <exclude name="target/"/>
                 <exclude name="*/target/"/>
-                <exclude name="*/nbproject/private/"/>
+                <exclude name="*/nbproject/"/>
                 <exclude name="*/catalog.xml"/>
                 <exclude name="*/build-deps.properties"/>
+                <exclude name="*/*.war"/> 
+                <exclude name="*/plugins/"/> 
             </zipfileset>
         </zip>        
     </target>       
