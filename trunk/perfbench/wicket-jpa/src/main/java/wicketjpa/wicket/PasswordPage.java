@@ -1,6 +1,5 @@
 package wicketjpa.wicket;
 
-import javax.persistence.EntityManager;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -32,9 +31,8 @@ public class PasswordPage extends TemplatePage {
         }
 
         @Override
-        protected void onSubmit() {
-            EntityManager em = getEntityManager();
-            em.merge(user);
+        protected void onSubmit() {            
+            getEntityManager().merge(user);
             getSession().info("Password updated");
             setResponsePage(MainPage.class);
         }        
