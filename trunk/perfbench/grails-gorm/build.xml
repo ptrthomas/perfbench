@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="grails-gorm" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+    
+    <import file="../build.xml"/>   
+    
+    <property file="../build.properties"/>
+    <property name="war.name" value="grails-gorm"/>
+    <property name="jmeter.script" value="etc/booking.jmx"/>
+    <property name="start.class" value="start.Start"/>
+    <property name="stop.class" value="start.Stop"/>
+    
+    <target name="check-war-exploded">
+        <available file="target/${war.name}/WEB-INF/web.xml" property="war.exploded"/>
+    </target>   
+    
+    <target name="war-exploded" depends="check-war-exploded" unless="war.exploded">
+        <antcall target="mvn-grails-war"/>    
+    </target>
+    
+    <target name="jetty-jars-init" depends="mvn-init" unless="jetty.jars">
+        <artifact:dependencies pathId="jetty.jars">
+          <dependency groupId="org.mortbay.jetty" artifactId="jetty" version="6.1.9"/>
+          <dependency groupId="org.mortbay.jetty" artifactId="jetty-util" version="6.1.9"/>          
+          <localRepository refid="local.repository"/>
+        </artifact:dependencies>    
+    </target>
+    
+    <target name="compile-test" depends="war-exploded, jetty-jars-init">
+        <mkdir dir="target/test-classes"/>
+        <javac srcdir="etc" destdir="target/test-classes" debug="true" source="1.5" target="1.5" classpathref="jetty.jars"/>     
+    </target>
+    
+    <target name="mvn-grails-war" depends="mvn-init">         
+        <artifact:mvn pom="pom.xml" >
+            <arg value="grails:war"/>
+            <localRepository refid="local.repository"/>
+        </artifact:mvn>  
+        <unzip src="grails-gorm-1.0-SNAPSHOT.war" dest="target/${war.name}"/>
+    </target>   
+    
+    <target name="jetty-init" depends="compile-test" unless="jetty-classpath">       
+        <path id="jetty.classpath">            
+            <path path="target/test-classes"/>
+            <path refid="jetty.jars"/>
+        </path>
+    </target>             
+              
+</project>
