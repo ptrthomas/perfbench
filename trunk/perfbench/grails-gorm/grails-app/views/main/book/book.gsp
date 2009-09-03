@@ -75,7 +75,7 @@
       <div class="input">
         <g:select name="creditCardExpiryMonth" value="${booking.creditCardExpiryMonth}" optionKey="key" optionValue="value"
                   from="${[1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec']}"/>
-        <g:select name="creditCardExpiryYear" value="${booking.creditCardExpiryYear}" from="${2005..2009}"/>
+        <g:select name="creditCardExpiryYear" value="${booking.creditCardExpiryYear}" from="${2006..2010}"/>
       </div>
     </div>
     <div class="entry">
