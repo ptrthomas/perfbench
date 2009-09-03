@@ -237,7 +237,7 @@
                 </elementProp>
                 <elementProp name="value" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">1111111111111111</stringProp>
+                  <stringProp name="Argument.value">1234123412341234</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">value</stringProp>
@@ -386,17 +386,31 @@
                 </elementProp>
                 <elementProp name="creditCard" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">1111111111111111</stringProp>
+                  <stringProp name="Argument.value">1234123412341234</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">creditCard</stringProp>
                 </elementProp>
                 <elementProp name="creditCardName" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">Test User</stringProp>
+                  <stringProp name="Argument.value">Thread ${__threadNum} Loop ${loopCount}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">creditCardName</stringProp>
+                </elementProp>
+                <elementProp name="creditCardExpiryMonth" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">12</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">creditCardExpiryMonth</stringProp>
+                </elementProp>
+                <elementProp name="creditCardExpiryYear" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">2010</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">creditCardExpiryYear</stringProp>
                 </elementProp>
                 <elementProp name="_eventId_proceed" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>

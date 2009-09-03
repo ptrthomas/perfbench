@@ -27,12 +27,12 @@ public class BookPage extends TemplatePage {
     private static final List<Boolean> smokingValues = Arrays.asList(true, false);
     private static final String[] monthOptions = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private static final List<Integer> monthValues = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-    private static final List<Integer> yearValues = Arrays.asList(2005, 2006, 2007, 2008, 2009);
+    private static final List<Integer> yearValues = Arrays.asList(2006, 2007, 2008, 2009, 2010);
 
-    private Booking booking;    
+    private Booking booking;
 
     public BookPage(Booking booking) {
-        this.booking = booking;        
+        this.booking = booking;
         setModel(new CompoundPropertyModel(booking));
         add(new Label("hotel.name"));
         add(new Label("hotel.address"));
@@ -47,7 +47,7 @@ public class BookPage extends TemplatePage {
     private class BookingForm extends Form {
 
         public BookingForm(String id) {
-            super(id);            
+            super(id);
             final DateField checkinDate = new DateField("checkinDate");
             final Calendar yesterday = Calendar.getInstance();
             yesterday.add(Calendar.DAY_OF_MONTH, -1);
@@ -93,9 +93,9 @@ public class BookPage extends TemplatePage {
             add(new EditBorder("creditCardBorder", new TextField("creditCard").setRequired(true), true));
             add(new EditBorder("creditCardNameBorder", new TextField("creditCardName").setRequired(true), true));
             EditBorder creditCardExpiryBorder = new EditBorder("creditCardExpiryBorder");
-            add(creditCardExpiryBorder);            
+            add(creditCardExpiryBorder);
             creditCardExpiryBorder.add(new DropDownChoice("creditCardExpiryMonth", monthValues, new IChoiceRenderer() {
-                public Object getDisplayValue(Object o) {                    
+                public Object getDisplayValue(Object o) {
                     return monthOptions[(Integer) o - 1];
                 }
                 public String getIdValue(Object o, int index) {

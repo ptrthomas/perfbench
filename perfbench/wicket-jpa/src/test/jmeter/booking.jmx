@@ -368,14 +368,14 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="checkinDateBorder:checkinDate:date" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">06/01/09</stringProp>
+                  <stringProp name="Argument.value">06/01/10</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">checkinDateBorder:checkinDate:date</stringProp>
                 </elementProp>
                 <elementProp name="checkoutDateBorder:checkoutDate:date" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">06/02/09</stringProp>
+                  <stringProp name="Argument.value">06/02/10</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">checkoutDateBorder:checkoutDate:date</stringProp>
