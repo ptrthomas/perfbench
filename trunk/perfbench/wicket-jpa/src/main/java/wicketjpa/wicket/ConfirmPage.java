@@ -10,7 +10,7 @@ import wicketjpa.entity.Booking;
 public class ConfirmPage extends TemplatePage {
 
     public ConfirmPage(final Booking booking) {
-        setModel(new CompoundPropertyModel(booking));
+        setDefaultModel(new CompoundPropertyModel(booking));
         add(new Label("hotel.name"));
         add(new Label("hotel.address"));
         add(new Label("hotel.city"));

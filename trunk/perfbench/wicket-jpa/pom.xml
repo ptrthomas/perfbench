@@ -29,18 +29,14 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.4.sp1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.3.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.8.0.GA</version>
+            <scope>runtime</scope>                    
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
@@ -55,19 +51,19 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>            
-            <version>3.3.1.ga</version>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.4.0.GA</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency> 
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>3.0.0.GA</version>
+            <version>3.1.0.GA</version>
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
@@ -101,12 +97,6 @@
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-util</artifactId>
             <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -153,7 +143,7 @@
     </build>
 
     <properties>
-        <wicket.version>1.3.5</wicket.version>
+        <wicket.version>1.4.1</wicket.version>
         <slf4j.version>1.4.2</slf4j.version>
         <jetty.version>6.1.9</jetty.version>
     </properties>

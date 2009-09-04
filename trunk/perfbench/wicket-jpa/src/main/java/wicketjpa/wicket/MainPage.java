@@ -29,16 +29,32 @@ public class MainPage extends TemplatePage {
 
     private static final List<Integer> pageSizes = Arrays.asList(5, 10, 20);
 
-    private WebMarkupContainer hotelsContainer;      
+    private WebMarkupContainer hotelsContainer;
 
     public MainPage() {
-        setModel(new CompoundPropertyModel(new PropertyModel(this, "session")));
+        setDefaultModel(new CompoundPropertyModel(new PropertyModel(this, "session")));
         add(new FeedbackPanel("messages"));
         add(new SearchForm("form"));
         hotelsContainer = new WebMarkupContainer("hotelsContainer");        
         add(hotelsContainer.setOutputMarkupId(true));
 
-        final PropertyListView hotelsListView = new PropertyListView("hotels") {
+        hotelsContainer.add(new WebMarkupContainer("noResultsContainer") {
+            @Override
+            public boolean isVisible() {
+                return !isHotelsVisible();
+            }
+        });
+
+        WebMarkupContainer hotelsTable = new WebMarkupContainer("hotelsTable") {
+            @Override
+            public boolean isVisible() {
+                return isHotelsVisible();
+            }
+        };
+
+        hotelsContainer.add(hotelsTable);
+
+        hotelsTable.add(new PropertyListView("hotels") {
             protected void populateItem(ListItem item) {
                 item.add(new Label("name"));
                 item.add(new Label("address"));
@@ -53,20 +69,8 @@ public class MainPage extends TemplatePage {
                     }
                 });
             }
-            @Override
-            public boolean isVisible() {
-                return !getList().isEmpty();
-            }
-        };
-
-        hotelsContainer.add(new WebMarkupContainer("noResultsContainer") {
-            @Override
-            public boolean isVisible() {
-                return !hotelsListView.isVisible();
-            }
         });
-
-        hotelsContainer.add(hotelsListView);
+        
         hotelsContainer.add(new Link("moreResultsLink") {
             public void onClick() {
                 BookingSession session = getBookingSession();
@@ -75,15 +79,32 @@ public class MainPage extends TemplatePage {
             }
             @Override
             public boolean isVisible() {
-                return hotelsListView.getList().size() == getBookingSession().getPageSize();
+                List<Hotel> hotels = getBookingSession().getHotels();
+                return hotels != null && hotels.size() == getBookingSession().getPageSize();
             }
         });                
 
         if(getBookingSession().getBookings() == null) {
             loadBookings();
         }
+        
+        add(new WebMarkupContainer("noBookingsContainer") {
+            @Override
+            public boolean isVisible() {
+                return !isBookingsVisible();
+            }
+        });
 
-        final PropertyListView bookingsListView = new PropertyListView("bookings") {
+        WebMarkupContainer bookingsTable = new WebMarkupContainer("bookingsTable") {
+            @Override
+            public boolean isVisible() {
+                return isBookingsVisible();
+            }
+        };
+
+        add(bookingsTable);
+
+        bookingsTable.add(new PropertyListView("bookings") {
             protected void populateItem(ListItem item) {
                 item.add(new Label("hotel.name"));
                 item.add(new Label("hotel.address"));
@@ -107,19 +128,6 @@ public class MainPage extends TemplatePage {
                         }
                     }
                 });
-            }
-            @Override
-            public boolean isVisible() {
-                return !getList().isEmpty();
-            }  
-        };
-
-        add(bookingsListView);
-
-        add(new WebMarkupContainer("noBookingsContainer") {
-            @Override
-            public boolean isVisible() {
-                return !bookingsListView.isVisible();
             }
         });
         
@@ -174,5 +182,15 @@ public class MainPage extends TemplatePage {
         query.setFirstResult(session.getPage() * session.getPageSize());
         session.setHotels(query.getResultList());
     }
+
+    private boolean isHotelsVisible() {
+        List<Hotel> hotels = getBookingSession().getHotels();
+        return hotels != null && !hotels.isEmpty();
+    }
+
+    private boolean isBookingsVisible() {
+        return !getBookingSession().getBookings().isEmpty();
+    }
+    
 }
 
