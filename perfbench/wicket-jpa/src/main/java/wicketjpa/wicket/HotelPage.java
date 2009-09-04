@@ -11,7 +11,7 @@ import wicketjpa.entity.Hotel;
 public class HotelPage extends TemplatePage {
 
     public HotelPage(final Hotel hotel) {
-        setModel(new CompoundPropertyModel(hotel));
+        setDefaultModel(new CompoundPropertyModel(hotel));
         add(new Label("name"));
         add(new Label("address"));
         add(new Label("city"));

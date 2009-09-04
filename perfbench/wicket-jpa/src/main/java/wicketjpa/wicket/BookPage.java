@@ -33,7 +33,7 @@ public class BookPage extends TemplatePage {
 
     public BookPage(Booking booking) {
         this.booking = booking;
-        setModel(new CompoundPropertyModel(booking));
+        setDefaultModel(new CompoundPropertyModel(booking));
         add(new Label("hotel.name"));
         add(new Label("hotel.address"));
         add(new Label("hotel.city"));
