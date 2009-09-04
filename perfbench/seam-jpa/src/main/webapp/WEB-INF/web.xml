@@ -47,6 +47,11 @@
     <context-param>        
       <param-name>facelets.DEVELOPMENT</param-name>        
       <param-value>false</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>com.sun.faces.expressionFactory</param-name>
+        <param-value>org.jboss.el.ExpressionFactoryImpl</param-value>
     </context-param>    
     
 </web-app>
