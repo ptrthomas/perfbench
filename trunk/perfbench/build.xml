@@ -9,7 +9,10 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
 
 -->
 
-<project name="booking-perf" basedir=".">    
+<project name="booking-perf" basedir="."> 
+
+    <property name="javac.source" value="1.6"/>
+    <property name="javac.debug" value="true"/>
 
     <!-- ========================= MAVEN ============================ -->
     
@@ -46,7 +49,8 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
     
     <target name="compile" depends="mvn-init">
         <mkdir dir="target/classes"/>        
-        <javac srcdir="src/main/java" destdir="target/classes" debug="true" classpathref="compile.classpath" source="1.5" target="1.5"/>
+        <javac srcdir="src/main/java" destdir="target/classes" classpathref="compile.classpath"
+                debug="${javac.debug}" source="${javac.source}" target="${javac.source}"/>
         <copy todir="target/classes">
             <fileset dir="src/main/java" excludes="**/*.java"/>
         </copy>         
@@ -57,7 +61,8 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
     
     <target name="compile-test" depends="compile">   
         <mkdir dir="target/test-classes"/>
-        <javac srcdir="src/test/java" destdir="target/test-classes" debug="true" source="1.5" target="1.5">
+        <javac srcdir="src/test/java" destdir="target/test-classes" 
+                debug="${javac.debug}" source="${javac.source}" target="${javac.source}">
             <classpath>
                 <path path="target/classes"/>
                 <path refid="test.classpath"/>
@@ -86,7 +91,8 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
         <taskdef name="jmeter" classpathref="jmeter.classpath" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask"/>         
         <mkdir dir="../target"/>
         <mkdir dir="../jmeter-utils/target/classes"/>
-        <javac srcdir="../jmeter-utils/src/main/java" destdir="../jmeter-utils/target/classes" debug="true" source="1.5" target="1.5"/>          
+        <javac srcdir="../jmeter-utils/src/main/java" destdir="../jmeter-utils/target/classes" 
+                debug="${javac.debug}" source="${javac.source}" target="${javac.source}"/>          
         <property name="include.logout" value="1"/>
     </target>    
     
@@ -109,6 +115,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
             <arg value="../target/${war.name}_${thread.count}.jtl"/>
             <arg value="${thread.count}"/>
             <arg value="../target/${war.name}.xml"/>
+            <jvmarg value="-server"/>
         </java>
     </target>        
     
@@ -153,6 +160,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
             <arg value="../target/${war.name}.xml"/>
             <arg value="../target/${war.name}.csv"/>
             <arg value="../target/${war.name}.txt"/>
+            <jvmarg value="-server"/>
         </java>    
     </target>
     
@@ -166,6 +174,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
                 <jvmarg value="-Dcom.sun.management.jmxremote.port=9004"/>
                 <jvmarg value="-Dcom.sun.management.jmxremote.authenticate=false"/>
                 <jvmarg value="-Dcom.sun.management.jmxremote.ssl=false"/>
+                <jvmarg value="-server"/>
             </java>             
             <sequential>
                 <waitfor>
@@ -197,6 +206,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
             <classpath refid="jetty.classpath"/>
             <jvmarg value="-Xms64m"/>
             <jvmarg value="-Xmx64m"/>
+            <jvmarg value="-server"/>
         </java>    
     </target>
     

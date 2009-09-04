@@ -27,7 +27,8 @@
     
     <target name="compile-test" depends="war-exploded, jetty-jars-init">
         <mkdir dir="target/test-classes"/>
-        <javac srcdir="etc" destdir="target/test-classes" debug="true" source="1.5" target="1.5" classpathref="jetty.jars"/>     
+        <javac srcdir="etc" destdir="target/test-classes" classpathref="jetty.jars"
+                debug="${javac.debug}" source="${javac.source}" target="${javac.source}"/>     
     </target>
     
     <target name="mvn-grails-war" depends="mvn-init">         
