@@ -122,8 +122,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
     <target name="jmeter-cycle" depends="jmeter-input, jmeter-init">               
         <parallel>
             <antcall target="jetty-start"/>
-            <sequential>
-                <property name="home.page.url" value="http://127.0.0.1:8080/${war.name}/"/>
+            <sequential>                
                 <echo>polling for home page: ${home.page.url}</echo>
                 <waitfor>
                     <http url="${home.page.url}"/>                    
@@ -181,7 +180,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
             </java>             
             <sequential>
                 <waitfor>
-                    <socket server="127.0.0.1" port="8080"/>
+                    <http url="${home.page.url}"/>                    
                 </waitfor>                
                 <antcall target="jmeter">                    
                     <param name="include.logout" value="0"/>
