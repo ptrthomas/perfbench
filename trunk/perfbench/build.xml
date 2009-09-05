@@ -123,9 +123,12 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
         <parallel>
             <antcall target="jetty-start"/>
             <sequential>
+                <property name="home.page.url" value="http://127.0.0.1:8080/${war.name}/"/>
+                <echo>polling for home page: ${home.page.url}</echo>
                 <waitfor>
-                    <socket server="127.0.0.1" port="8080"/>
-                </waitfor>                
+                    <http url="${home.page.url}"/>                    
+                </waitfor>
+                <echo>home page available, starting test...</echo>               
                 <antcall target="jmeter"/>                
                 <antcall target="jetty-stop"/>    
                 <antcall target="jmeter-report"/>
