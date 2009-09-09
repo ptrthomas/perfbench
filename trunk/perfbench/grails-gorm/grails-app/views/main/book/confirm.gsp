@@ -29,7 +29,7 @@
     </div>
     <div class="entry">
       <div class="label">Total payment:</div>
-      <div class="output"><g:formatNumber number="${booking.total}" format="\$###.00"/></div>
+      <div class="output"><g:formatNumber number="${booking.total}" format="\$0.00"/></div>
     </div>
     <div class="entry">
       <div class="label">Check In Date:</div>

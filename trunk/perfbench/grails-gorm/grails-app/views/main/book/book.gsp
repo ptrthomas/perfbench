@@ -30,7 +30,7 @@
   </div>
   <div class="entry">
     <div class="label">Nightly rate:</div>
-    <div class="output"><g:formatNumber number="${booking.hotel.price}" format="\$###.00"/></div>
+    <div class="output"><g:formatNumber number="${booking.hotel.price}" format="\$0.00"/></div>
   </div>
   <g:form action="book">
     <div class="entry">
