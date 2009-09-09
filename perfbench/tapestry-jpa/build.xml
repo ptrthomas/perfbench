@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="wicket-jpa" basedir=".">
+    
+    <import file="../build.xml"/>
+    
+    <property file="../build.properties"/>       
+    <property name="war.name" value="tapestry-jpa"/>
+    <property name="jmeter.script" value="src/test/jmeter/booking.jmx"/>
+    <property name="start.class" value="start.Start"/>
+    <property name="stop.class" value="start.Stop"/>
+    <property name="home.page.url" value="http://127.0.0.1:8080/${war.name}/"/>
+              
+</project>
