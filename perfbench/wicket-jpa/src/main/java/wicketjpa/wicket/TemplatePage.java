@@ -21,7 +21,7 @@ public class TemplatePage extends WebPage {
         add(new Link("logout") {
             public void onClick() {
                 getSession().invalidate();
-                setResponsePage(MainPage.class);
+                setResponsePage(HomePage.class);
             }
         });
     }

@@ -117,15 +117,14 @@ public class MainPage extends TemplatePage {
                 item.add(new Link("cancel", item.getModel()) {                    
                     public void onClick() {
                         Booking booking = (Booking) getModelObject();
-                        logger.info("Cancel booking: " + booking.getId() 
-                                + " for " + getBookingSession().getUser().getUsername());
+                        logger.info("Cancel booking: {} for {}", booking.getId(), getBookingSession().getUser().getUsername());
                         EntityManager em = getEntityManager();
                         Booking cancelled = em.find(Booking.class, booking.getId());
                         if (cancelled != null) {
-                            em.remove(cancelled);
-                            loadBookings();
+                            em.remove(cancelled);                            
                             getSession().info("Booking cancelled for confirmation number " + booking.getId());                            
                         }
+                        loadBookings();                        
                     }
                 });
             }
