@@ -13,7 +13,7 @@ import org.apache.wicket.protocol.http.WebRequestCycle;
 public class JpaRequestCycle extends WebRequestCycle {
 
     private EntityManager em;
-    private boolean endConversation;
+    private boolean endConversation;    
 
     public static JpaRequestCycle get() {
         return (JpaRequestCycle) RequestCycle.get();
@@ -32,15 +32,14 @@ public class JpaRequestCycle extends WebRequestCycle {
         return em;
     }
 
-    private boolean isTransactionActive() {
-        return em != null && em.getTransaction().isActive();
-    }
-
     @Override
     protected void onEndRequest() {
         super.onEndRequest();
-        if (isTransactionActive()) {
-            em.getTransaction().commit();
+        if (em != null) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().commit();
+            }
+            em.close();
         }
         if (endConversation) {
             getRequest().getPage().getPageMap().remove();
@@ -49,8 +48,11 @@ public class JpaRequestCycle extends WebRequestCycle {
 
     @Override
     public Page onRuntimeException(Page page, RuntimeException e) {        
-        if (isTransactionActive()) {
-            em.getTransaction().rollback();
+        if (em != null) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
         }
         if (e instanceof PageExpiredException) {
             getSession().error("The page you requested has expired.");
@@ -62,4 +64,5 @@ public class JpaRequestCycle extends WebRequestCycle {
     public void endConversation() {
         endConversation = true;
     }
+
 }
