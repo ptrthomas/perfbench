@@ -40,6 +40,37 @@ The JPA entities Booking.java, Hotel.java and User.java are identical to what is
 in the seam-jpa source - except for removal of seam "Name" and "Scope" annotations 
 and the different package name.
 
+4) wicket-seam: *** coming soon ;) ***
+
+Code in this sub-project is adapted from the "jpa" and "wicket" examples 
+in the Seam Framework distribution and is released here
+under the same license terms.
+
+The JPA entities Booking.java, Hotel.java and User.java are identical to what is used
+in the seam-jpa source - except for formatting and the different package name.
+
+5) grails-gorm:
+
+Code in this sub-project is adapted from the "jpa" and "wicket" examples 
+in the Seam Framework distribution and is released here
+under the same license terms.
+
+Instead of JPA entities GORM-ified Groovy classes are used, and the import.sql file has
+been adjusted to match: Customer table renamed to User with an autoincrement id and 
+version columns added for all tables.
+
+6) tapestry-jpa
+
+Code in this sub-project is adapted from the "jpa" and "wicket" examples 
+in the Seam Framework distribution and is released here
+under the same license terms.
+
+The JPA entities Booking.java, Hotel.java and User.java are identical to what is used
+in the seam-jpa source - except for formatting and the different package name.
+
+Uses Tapestry 5 and is not fully complete, validation of forms using Hibernate validator
+is not yet done.  Gave up because it was too hard.  Maybe someone can help me complete it.
+
 
 ================================================================================
 Information on open source projects from which some of the code in this
