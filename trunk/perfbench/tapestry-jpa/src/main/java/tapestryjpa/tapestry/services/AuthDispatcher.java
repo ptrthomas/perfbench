@@ -15,6 +15,7 @@ public class AuthDispatcher implements Dispatcher {
         this.asm = asm;
     }
 
+    @Override
     public boolean dispatch(Request request, Response response) throws IOException {
         String path = request.getPath();        
         if (path.equals("/homepage") || path.equals("/homepage.form")
@@ -24,7 +25,11 @@ public class AuthDispatcher implements Dispatcher {
         }
         if (asm.exists(BookingSession.class)) {
             BookingSession session = asm.get(BookingSession.class);            
-            if(session.getUser() != null) {
+            if (session.getUser() != null) {
+                if (path.equals("/")) {
+                    response.sendRedirect(request.getContextPath() + "/mainpage");
+                    return true;
+                }
                 return false;
             }            
         }
