@@ -170,8 +170,8 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
         <parallel>
             <java classname="${start.class}" fork="true">
                 <classpath refid="jetty.classpath"/>  
-                <jvmarg value="-Xms64m"/>
-                <jvmarg value="-Xmx64m"/>                
+                <jvmarg value="-Xms128m"/>
+                <jvmarg value="-Xmx128m"/>                
                 <jvmarg value="-Dcom.sun.management.jmxremote"/>
                 <jvmarg value="-Dcom.sun.management.jmxremote.port=9004"/>
                 <jvmarg value="-Dcom.sun.management.jmxremote.authenticate=false"/>
@@ -206,8 +206,8 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
     <target name="jetty-start" depends="compile-test, jetty-init">
         <java classname="${start.class}" fork="true">
             <classpath refid="jetty.classpath"/>
-            <jvmarg value="-Xms64m"/>
-            <jvmarg value="-Xmx64m"/>
+            <jvmarg value="-Xms128m"/>
+            <jvmarg value="-Xmx128m"/>
             <jvmarg value="-server"/>
         </java>    
     </target>
