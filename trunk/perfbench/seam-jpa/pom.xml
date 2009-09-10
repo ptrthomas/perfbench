@@ -167,10 +167,11 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <debug>true</debug>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
-            </plugin>          
+            </plugin>         
         </plugins>
     </build>
 
