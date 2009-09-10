@@ -15,7 +15,8 @@
     </target>   
     
     <target name="war-exploded" depends="check-war-exploded" unless="war.exploded">
-        <antcall target="mvn-grails-war"/>    
+        <antcall target="mvn-grails-war"/> 
+        <antcall target="war-unzip"/>
     </target>
     
     <target name="jetty-jars-init" depends="mvn-init" unless="jetty.jars">
@@ -36,8 +37,7 @@
         <artifact:mvn pom="pom.xml" >
             <arg value="grails:war"/>
             <localRepository refid="local.repository"/>
-        </artifact:mvn>  
-        <unzip src="grails-gorm-1.0-SNAPSHOT.war" dest="target/${war.name}"/>
+        </artifact:mvn>        
     </target>   
     
     <target name="jetty-init" depends="compile-test" unless="jetty-classpath">       
@@ -45,6 +45,10 @@
             <path path="target/test-classes"/>
             <path refid="jetty.jars"/>
         </path>
-    </target>             
+    </target>  
+    
+    <target name="war-unzip">
+        <unzip src="grails-gorm-1.0-SNAPSHOT.war" dest="target/${war.name}"/>
+    </target>
               
 </project>
