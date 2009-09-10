@@ -10,7 +10,7 @@ log4j = {
         console name: 'stdout', layout: pattern(conversionPattern: '[%t] %p [%c] %m%n')
     }
     root {
-        error()
+        error 'stdout'
     }    
     info 'grails.app'
     // debug 'org.hibernate.SQL'   
