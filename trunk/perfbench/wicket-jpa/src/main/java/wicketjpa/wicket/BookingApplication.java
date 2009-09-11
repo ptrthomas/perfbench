@@ -14,10 +14,10 @@ import org.apache.wicket.Response;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authorization.IAuthorizationStrategy;
-import org.apache.wicket.protocol.http.HttpSessionStore;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequest;
-import org.apache.wicket.session.ISessionStore;
+import org.apache.wicket.protocol.http.request.urlcompressing.UrlCompressingWebRequestProcessor;
+import org.apache.wicket.request.IRequestCycleProcessor;
 import org.apache.wicket.util.convert.ConverterLocator;
 import org.apache.wicket.util.convert.converters.BigDecimalConverter;
 
@@ -46,6 +46,7 @@ public class BookingApplication extends WebApplication {
                 return true;
             }
         });
+        getMarkupSettings().setCompressWhitespace(true);
     }
 
     @Override
@@ -56,6 +57,11 @@ public class BookingApplication extends WebApplication {
     @Override
     public BookingSession newSession(Request request, Response response) {
         return new BookingSession(request);
+    }
+
+    @Override
+    protected IRequestCycleProcessor newRequestCycleProcessor() {
+        return new UrlCompressingWebRequestProcessor();
     }
 
 //    @Override
