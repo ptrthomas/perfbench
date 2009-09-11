@@ -19,6 +19,7 @@ public class TemplatePage extends WebPage {
         add(new BookmarkablePageLink("search", MainPage.class));
         add(new BookmarkablePageLink("settings", PasswordPage.class));
         add(new Link("logout") {
+            @Override
             public void onClick() {
                 getSession().invalidate();
                 setResponsePage(HomePage.class);

@@ -5,8 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -23,7 +23,7 @@ public class HomePage extends WebPage {
         add(new LoginForm("form"));
     }
 
-    private class LoginForm extends Form {
+    private class LoginForm extends StatelessForm {
 
         private TextField username = new TextField("username", new Model(""));
         private TextField password = new PasswordTextField("password", new Model(""));

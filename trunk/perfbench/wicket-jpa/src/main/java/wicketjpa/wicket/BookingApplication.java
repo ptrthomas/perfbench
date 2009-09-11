@@ -25,6 +25,7 @@ public class BookingApplication extends WebApplication {
 
     private EntityManagerFactory emf;
 
+    @Override
     public Class getHomePage() {
         return MainPage.class;
     }
@@ -34,9 +35,11 @@ public class BookingApplication extends WebApplication {
         super.init();
         emf = Persistence.createEntityManagerFactory("bookingDatabase");
         getSecuritySettings().setAuthorizationStrategy(new IAuthorizationStrategy() {
+            @Override
             public boolean isActionAuthorized(Component c, Action a) {
                 return true;
             }
+            @Override
             public boolean isInstantiationAuthorized(Class clazz) {
                 if (TemplatePage.class.isAssignableFrom(clazz)) {
                     if (BookingSession.get().getUser() == null) {
@@ -47,6 +50,7 @@ public class BookingApplication extends WebApplication {
             }
         });
         getMarkupSettings().setCompressWhitespace(true);
+        mountBookmarkablePage("/home", HomePage.class);
     }
 
     @Override
