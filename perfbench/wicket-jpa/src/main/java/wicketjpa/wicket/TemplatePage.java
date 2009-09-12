@@ -5,7 +5,6 @@ import javax.persistence.Query;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +17,7 @@ public class TemplatePage extends WebPage {
         add(new Label("userName", new PropertyModel(this, "session.user.name")));
         add(new BookmarkablePageLink("search", MainPage.class));
         add(new BookmarkablePageLink("settings", PasswordPage.class));
-        add(new Link("logout") {
-            @Override
-            public void onClick() {
-                getSession().invalidate();
-                setResponsePage(HomePage.class);
-            }
-        });
+        add(new BookmarkablePageLink("logout", LogoutPage.class));
     }
 
     protected EntityManager getEntityManager() {

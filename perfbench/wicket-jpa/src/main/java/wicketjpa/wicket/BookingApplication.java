@@ -11,7 +11,7 @@ import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.Response;
-import org.apache.wicket.RestartResponseAtInterceptPageException;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -43,7 +43,7 @@ public class BookingApplication extends WebApplication {
             public boolean isInstantiationAuthorized(Class clazz) {
                 if (TemplatePage.class.isAssignableFrom(clazz)) {
                     if (BookingSession.get().getUser() == null) {
-                        throw new RestartResponseAtInterceptPageException(HomePage.class);
+                        throw new RestartResponseException(HomePage.class);
                     }
                 }
                 return true;
@@ -51,6 +51,9 @@ public class BookingApplication extends WebApplication {
         });
         getMarkupSettings().setCompressWhitespace(true);
         mountBookmarkablePage("/home", HomePage.class);
+        mountBookmarkablePage("/logout", LogoutPage.class);
+        mountBookmarkablePage("/register", RegisterPage.class);
+        mountBookmarkablePage("/settings", PasswordPage.class);        
     }
 
     @Override
