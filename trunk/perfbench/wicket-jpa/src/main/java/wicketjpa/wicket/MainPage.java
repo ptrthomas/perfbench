@@ -1,7 +1,5 @@
 package wicketjpa.wicket;
 
-import java.util.Iterator;
-import org.apache.wicket.model.IModel;
 import wicketjpa.entity.Hotel;
 import wicketjpa.entity.Booking;
 import java.util.Arrays;
@@ -18,14 +16,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.image.ContextImage;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RefreshingView;
-import org.apache.wicket.markup.repeater.util.ModelIteratorAdapter;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 public class MainPage extends TemplatePage {
@@ -57,9 +52,9 @@ public class MainPage extends TemplatePage {
 
         hotelsContainer.add(hotelsTable);
 
-        hotelsTable.add(new PropertyRefreshingView<Hotel>("hotels") {
+        hotelsTable.add(new PropertyListView<Hotel>("hotels") {
             @Override
-            protected void populateItem(Item<Hotel> item) {
+            protected void populateItem(ListItem<Hotel> item) {
                 item.add(new Label("name"));
                 item.add(new Label("address"));
                 item.add(new Label("city").setRenderBodyOnly(true));
@@ -109,9 +104,9 @@ public class MainPage extends TemplatePage {
 
         add(bookingsTable);
 
-        bookingsTable.add(new PropertyRefreshingView<Booking>("bookings") {
+        bookingsTable.add(new PropertyListView<Booking>("bookings") {
             @Override
-            protected void populateItem(Item<Booking> item) {
+            protected void populateItem(ListItem<Booking> item) {                
                 item.add(new Label("hotel.name"));
                 item.add(new Label("hotel.address"));
                 item.add(new Label("hotel.city").setRenderBodyOnly(true));
@@ -195,25 +190,6 @@ public class MainPage extends TemplatePage {
 
     private boolean isBookingsVisible() {
         return !getBookingSession().getBookings().isEmpty();
-    }
-
-    private static abstract class PropertyRefreshingView<T> extends RefreshingView<T> {        
-
-        public PropertyRefreshingView(String id) {
-            super(id);            
-        }
-
-        @Override
-        protected Iterator<IModel<T>> getItemModels() {
-            final List<T> list = (List<T>) getDefaultModelObject();
-            return new ModelIteratorAdapter<T>(list.iterator()) {
-                @Override
-                protected IModel<T> model(T object) {
-                    return new CompoundPropertyModel(object);
-                }
-            };
-        }
-
     }
     
 }
