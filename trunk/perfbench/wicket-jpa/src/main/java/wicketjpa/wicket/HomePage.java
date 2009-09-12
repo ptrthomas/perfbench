@@ -21,9 +21,10 @@ public class HomePage extends WebPage {
 
     public HomePage() {
         add(new LoginForm("form"));
+        setStatelessHint(true);
     }
 
-    private class LoginForm extends StatelessForm {
+    private static class LoginForm extends StatelessForm {
 
         private TextField username = new TextField("username", new Model(""));
         private TextField password = new PasswordTextField("password", new Model(""));
@@ -50,9 +51,11 @@ public class HomePage extends WebPage {
                 return;
             }
             User user = users.get(0);
-            BookingSession.get().setUser(user);
+            BookingSession session = BookingSession.get();            
+            session.setUser(user);
+            session.bind();
             logger.info("Login succeeded");
-            getSession().info("Welcome, " + user.getUsername());
+            session.info("Welcome, " + user.getUsername());
             setResponsePage(MainPage.class);
         }        
     }

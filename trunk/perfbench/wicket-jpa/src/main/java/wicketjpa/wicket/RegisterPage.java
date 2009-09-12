@@ -17,6 +17,7 @@ public class RegisterPage extends WebPage {
 
     public RegisterPage() {        
         add(new RegisterForm("form"));
+        setStatelessHint(true);
     }
 
     private class RegisterForm extends StatelessForm {

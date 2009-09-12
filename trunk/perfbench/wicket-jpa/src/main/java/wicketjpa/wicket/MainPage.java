@@ -68,7 +68,7 @@ public class MainPage extends TemplatePage {
                 item.add(new Label("zip"));                
                 item.add(new Link<Hotel>("view", item.getModel()) {
                     @Override
-                    public void onClick() {                        
+                    public void onClick() {
                         setResponsePage(new HotelPage(getModelObject()));
                     }
                 });
@@ -139,9 +139,7 @@ public class MainPage extends TemplatePage {
         
     }
 
-    private class SearchForm extends Form implements IAjaxIndicatorAware {
-
-        private ContextImage ajaxIndicator;
+    private class SearchForm extends Form implements IAjaxIndicatorAware {        
 
         public SearchForm(String id) {
             super(id);            
@@ -160,13 +158,11 @@ public class MainPage extends TemplatePage {
                     refreshHotelsContainer(target);
                 }
             });
-            ajaxIndicator = new ContextImage("ajaxIndicator", new Model("img/spinner.gif"));
-            add(ajaxIndicator.setOutputMarkupId(true));
         }
 
         @Override
         public String getAjaxIndicatorMarkupId() {
-            return ajaxIndicator.getMarkupId();
+            return "spinner";
         }
 
     }
