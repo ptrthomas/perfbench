@@ -32,6 +32,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   # In addition to the above point, when the user clicks the submit button and there are validation errors, the error messages should still be displayed alongside each form input field even though the page has not been refreshed using Ajax.
   # Exact same JPA entities should be used
     ** note: this has been relaxed for Grails and equivalent GORM entities have been instead
+  # Exact same database queries (JPA-QL) used be used.
   # Hibernate Validator: the Seam booking example uses JPA entities annotated with Hibernate Validator annotations such as @Length and @NotNull, and form validation has to re-use these rules
     ** note: this has been relaxed for Grails because of the use of GORM instead of JPA, so GORM constraints have been used instead of Hibernate Validator annotations.  However, the form validation re-uses the entity constraints as expected.
   # The browser back-button should ideally work as expected, either the expected page is shown or a "page expired" error is displayed - although this is not verified as part of the JMeter script.
@@ -47,7 +48,6 @@ This document outlines the functionality, specifications and screen-by-screen br
     ** note: this has been relaxed for Grails / GORM since there is no persistence.xml but the same Hibernate configuration is used in conf/DataSource.groovy
   # Exact same initial database import (import.sql) should be used
     ** note: slight changes for Grails because of the way GORM works, the only changes in this case are (a) Customer table renamed to User (b) "auto-increment" id column added to User table (c) "version" columns added to all 3 tables (User, Hotel, Booking)
-  # Exact same database queries (JPA-QL) used be used.
 
 = Screen Notes =
 == Home ==
