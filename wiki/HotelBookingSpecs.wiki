@@ -51,6 +51,7 @@ This document outlines the functionality, specifications and screen-by-screen br
     ** note: this has been relaxed for Grails / GORM since there is no persistence.xml but the same Hibernate configuration is used in conf/DataSource.groovy
   # Exact same initial database import (import.sql) should be used
     ** note: slight changes for Grails because of the way GORM works, the only changes in this case are (a) Customer table renamed to User (b) "auto-increment" id column added to User table (c) "version" columns added to all 3 tables (User, Hotel, Booking)
+  # Currency values should be displayed formatted as US Dollars e.g. "$0.12" wherever applicable
 
 = Screen Notes =
 == Home ==
