@@ -79,7 +79,7 @@ This document outlines the functionality, specifications and screen-by-screen br
     ** bookings done by user sorted by most recent first
   * for both tables, the table header should be hidden in case there are no rows of data visible and instead, a "no {record-type}s found" message should be displayed
   * the search input text field should update the hotel search results over Ajax (autocomplete style) with every keystroke
-  * there is a page-size drop-down, which defaults to 10
+  * there is a page-size drop-down (which defaults to 10) where the choices are 5, 10 and 20
   * if the search form submit button is used, it submits and refreshes the hotel search results over Ajax
   * any update of the hotel search results is cached in the user's session
   * the search string, page size and current page (pagination) index are also cached in the session
@@ -99,7 +99,8 @@ This document outlines the functionality, specifications and screen-by-screen br
   * this is the main booking form
   * refer code for the date validations
   * form fields should have server-side validation over Ajax
-  * a date picker component should be used for the date fields
+  * a date picker component should be available for the date fields
+  * refer the code of the baseline application for the exact option values rendered in the select boxes / radio buttons on the form
   * "Cancel" button aborts the flow and takes user to "main" page
   * "Proceed" button shows entered data on the next "confirm" page
   * both buttons are form submit buttons
