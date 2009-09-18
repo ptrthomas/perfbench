@@ -45,6 +45,9 @@ This document outlines the functionality, specifications and screen-by-screen br
   # Templating: except for the "home" page and the "register" page, all pages should use a common template where the header and footer areas have  been defined.
   # Flash scope / messages: some of the actions in the original application result in informational messages being displayed to the user when the page changes (or refreshes) which should be implemented identically.  For example, if the Seam application displays a welcome message on the "main" page after a successful login, the same should be done for Wicket.
   # Logging: The log4j configuration should be logically identical to that of the baseline.  Also, some of the actions in the original application result in INFO log messages to the console and these should be ported identically.
+  # WEB-INF/web.xml should be identical except for framework-specific configuration
+    ** note: this can't be practically done for Grails for obvious reasons
+  # Versions of Jetty, Hibernate and HSQLDB used for deployment when running the test should be the same.
 
 = Screen Notes =
 == Home ==
@@ -105,10 +108,16 @@ This document outlines the functionality, specifications and screen-by-screen br
   * all three buttons are form submit buttons
 
 == Password ==
-  * when the user clicks the "settings" link in the template header he is taken to this page
+  * this page is shown when the user clicks the "settings" link in the template header
   * this page just a form with just 2 fields for changing the logged-in user's password
   * form fields should have server-side validation over Ajax
   * that the password and verify passwords match should be validated
   * submitting using the "Change" button should update the user record in the database and return to the "main" page and a confirmation message should be displayed
   * "Cancel" button takes the user to the "main" page
   * both buttons are form submit buttons
+
+= JMeter Test Plan Notes =
+  * refer image below
+  * login and logout happens only once for each virtual user
+  * the main "loop" is run 10 times (per user)
+  * JMeter scripts should of course be logically same for each: Seam, Wicket etc.
