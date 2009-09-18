@@ -41,7 +41,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   # The default page for an authenticated user should be the "main" page
   # Templating: except for the "home" page and the "register" page, all pages should use a common template where the header and footer areas have  been defined.
   # Flash scope / messages: some of the actions in the original application result in informational messages being displayed to the user when the page changes (or refreshes) which should be implemented identically.  For example, if the Seam application displays a welcome message on the "main" page after a successful sign-on, the same should be done for Wicket.
-  # Logging: The log4j configuration should be logically identical to that of the baseline.  Also, some of the actions in the original application result in INFO log messages to the console and these should be ported identically.
+  # Logging: The log4j configuration should be logically identical to that of the baseline.  Also, some of the actions in the original application result in INFO / ERROR log messages to the console and these should be ported identically.
   # WEB-INF/web.xml should be identical except for framework-specific configuration
     ** note: this can't be practically done for Grails for obvious reasons
   # Versions of Jetty, Hibernate and HSQLDB used for deployment when running the test should be the same.
