@@ -1,0 +1,51 @@
+#summary This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, and can be used as a reference for implementers and reviewers of the implementations.
+#labels Featured,Phase-Requirements
+
+= Overview =
+
+The Hotel Booking application is a sample application that is part of the [http://seamframework.org/ Seam Framework] distribution.  A high level listing of features can be found [http://docs.jboss.org/seam/2.1.2/reference/en-US/html/tutorial.html#booking here].
+
+This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, which has been slightly adapted for "PerfBench", and can be used as a reference for implementers as well as reviewers of the implementations.
+
+= Reference Application =
+
+* the original application is the JPA version of the Seam Hotel Booking example: [http://anonsvn.jboss.org/repos/seam/branches/community/Seam_2_2/examples/jpa/ SVN]
+* the "baseline" application is the above with some minor cosmetic changes: [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa browse] [http://perfbench.googlecode.com/svn/trunk/perfbench/seam-jpa SVN]
+* list of cosmetic changes made:
+** now using maven folder structure along with a maven project file (pom.xml)
+** removed "sidebar" and "conversations" facelets ui:define placeholder from template.xhtml
+** removed "sidebar" ui:define content from the view *.xhtml files where existing
+** removed conversations.xhtml
+** minor re-fomatting and indentation of XML config files, facelets views and java code
+** removed session-timeout config from web.xml
+** changed facelets.DEVELOPMENT param to false in web.xml
+** java code split into 2 packages: seamjpa.entity and seamjpa.seam
+** removed dead / commented code, split some HQL strings to wrap long lines of code for readability
+
+= Rules =
+# All screens and all actions (hyperlinks, buttons) of the baseline application should be ported and be deployed even if not navigated to in the JMeter script
+# The views should be migrated one-to-one, obviously merging of two screens into one or skipping a screen is not allowed
+# Orginal logical names of the screens should be retained as far as possible, but using framework conventions, for e.g. booking.xhtml becomes BookingPage.html
+# HTML and CSS should be logically identical to the baseline so as to replicate the look and feel.  Exceptions are where some static text is changed (e.g. built using Apache Wicket) and where the underlying framework injects JavaScript and modifies the HTML whitespace
+# Exact same JPA configuration should be used
+# Exact same initial database import (import.sql) should be used
+** note: this has been relaxed a little for Grails because of the way GORM works, the only changes in this case are
+*** Customer table renamed to User
+*** "auto-increment" id column added to User table
+*** "version" columns added to all 3 tables (User, Hotel, Booking)
+# Exact same database queries (HQL) used be used.
+# Exact same session usage should be simulated.  For e.g. if the Seam booking example proceeds to push a list of search results into the HttpSession as a result of some action, the same thing should be done in Wicket.
+# Exact same validation behavior should be simulated.  For e.g. if the Seam booking example makes an Ajax request to the server to validate form input fields that the user is filling out, the same should be done in Wicket.
+# In addition to the above point, when the user clicks the submit button and there are validation errors, the error messages should still be displayed alongside each form input field even though the page has not been refreshed using Ajax.
+# Hibernate Validator: the Seam booking example uses JPA entities annotated with Hibernate Validator annotations such as @Length and @NotNull, and form validation has to re-use these rules.  This should be adhered to.
+** note: this has been relaxed for Grails because of the nature of GORM, so GORM constraints have been used instead of Hibernate Validator annotations.  However, the form validation re-uses the entity constraints as expected.
+# The browser back-button should ideally work as expected, either the page requested is shown or a "page expired" error is diplayed - although this is not verified as part of the JMeter script.
+# A key aspect of the Hotel Booking use-case is that multiple booking flows can be in progress simultaneously for the same logged in user's session.  This should be implemented correctly.
+# Security: except for the "home" page and the "register" page all pages should be secured so that a user who has not logged in would be redirected to the "home" page.
+# Templating: except for the "home" page and the "register" page, all pages should use a common template where the header and footer areas have  been defined.
+# Flash scope / messages: some of the actions in the original application result in informational messages being displayed to the user when the page changes (or refreshes) which should be implemented identically.  For example, if the Seam application displays a welcome message on the "main" page after a successful login, the same should be done for Wicket.
+# Logging: The log4j configuration should be logically identical to that of the baseline.  Also, some of the actions in the original application result in INFO log messages to the console and these should be ported identically.
+
+
+
+
