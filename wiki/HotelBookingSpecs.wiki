@@ -117,7 +117,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   * both buttons are form submit buttons
 
 = JMeter Test Plan Notes =
-  * open the booking.jmx file in JMeter to see the structure [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa/src/test/jmeter example]
+  * open the booking.jmx file in JMeter to see the structure [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa/src/test/jmeter (example)]
   * login and logout happens only once for each virtual user
   * the main "loop" is run 10 times (per user)
   * additional resources part of the web-pages (e.g CSS, JS and images) are ignored
