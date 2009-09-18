@@ -19,13 +19,13 @@ This document outlines the functionality, specifications and screen-by-screen br
     ** minor re-fomatting and indentation of XML config files, facelets views and java code
     ** removed session-timeout config from web.xml
     ** changed facelets.DEVELOPMENT param to false in web.xml
-    ** java code split into 2 packages: seamjpa.entity and seamjpa.seam
+    ** java code split into 2 packages: "seamjpa.entity" and "seamjpa.seam"
     ** removed dead / commented code, split some HQL strings to wrap long lines of code for readability
 
 = Rules =
   # All screens and all actions (hyperlinks, buttons) of the baseline application should be implemented and be deployed even if not navigated to in the JMeter script
   # The views should be migrated one-to-one, obviously merging of two screens into one or skipping a screen is not allowed
-  # Orginal logical names of the screens should be retained as far as possible, but using framework conventions, for e.g. booking.xhtml becomes BookingPage.html
+  # Original naming conventions should be preserved as far as possible, but using framework conventions, for e.g. booking.xhtml becomes BookingPage.html and a package name example is "wicketjpa.entity"
   # HTML and CSS should be logically identical to the baseline so as to replicate the look and feel.  Exceptions are where some static text is changed (e.g. built using Apache Wicket) and where the underlying framework injects JavaScript and modifies the HTML whitespace
   # Exact same session usage should be simulated.  For e.g. if the Seam booking example pushes a list of search results into the HttpSession as a result of some action, the same should happen in Wicket.
   # Exact same validation behavior should be simulated.  For e.g. if the Seam booking example makes an Ajax request to the server to validate form input fields that the user is filling out, the same should be done in Wicket.
