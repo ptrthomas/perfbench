@@ -1,4 +1,4 @@
-#summary This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, and can be used as a reference for implementers and reviewers of the implementations.
+#summary This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, and can be used as a reference for implementers and reviewers.
 #labels Featured,Phase-Requirements
 
 = Overview =
@@ -42,5 +42,3 @@ This document outlines the functionality, specifications and screen-by-screen br
   # Templating: except for the "home" page and the "register" page, all pages should use a common template where the header and footer areas have  been defined.
   # Flash scope / messages: some of the actions in the original application result in informational messages being displayed to the user when the page changes (or refreshes) which should be implemented identically.  For example, if the Seam application displays a welcome message on the "main" page after a successful login, the same should be done for Wicket.
   # Logging: The log4j configuration should be logically identical to that of the baseline.  Also, some of the actions in the original application result in INFO log messages to the console and these should be ported identically.
-
-
