@@ -122,4 +122,4 @@ This document outlines the functionality, specifications and screen-by-screen br
   * the main "loop" is run 10 times (per user)
   * additional resources part of the web-pages (e.g CSS, JS and images) are ignored
   * JMeter scripts should of course be logically same for each: Seam, Wicket etc, including simulation of Ajax requests
-  * The Ant script ensures that the home page is available before kicking off the JMeter script
+  * the Ant script ensures that the home page is available before kicking off the JMeter script, which means that the Jetty start-up time does not impact results
