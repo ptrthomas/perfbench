@@ -70,14 +70,15 @@ This document outlines the functionality, specifications and screen-by-screen br
 
 == (the Template) ==
   * once logged in, all pages have a common template (header, footer and css)
-  * the header has links to go to the main and settings page
+  * the header has links to go to the "main" and settings ("password") page
   * there is a third "logout" link which invalidates the http session and takes user back to the "home" page
 
 == Main ==
   * contains a search form, and 2 tables for 
     ** hotel search results
     ** bookings done by user sorted by most recent first
-  * the search input text field should update the hotel search results (autocomplete style) with every keystroke
+  * for both tables, the table header should be hidden in case there are no rows of data visible and instead, a "no {record-type}s found" message should be displayed
+  * the search input text field should update the hotel search results over Ajax (autocomplete style) with every keystroke
   * there is a page-size drop-down, which defaults to 10
   * if the search form submit button is used, it submits and refreshes the hotel search results over Ajax
   * any update of the hotel search results is cached in the user's session
