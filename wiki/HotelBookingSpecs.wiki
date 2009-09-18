@@ -28,7 +28,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   # Original naming conventions should be preserved as far as possible, but using framework conventions, for e.g. booking.xhtml becomes BookingPage.html and a package name example is "wicketjpa.entity"
   # HTML and CSS should be logically identical to the baseline so as to replicate the look and feel.  Exceptions are where some static text is changed (e.g. built using Apache Wicket) and where the underlying framework injects JavaScript and modifies the HTML whitespace
   # Exact same session usage should be simulated.  For e.g. if the Seam booking example pushes a list of search results into the HttpSession as a result of some action, the same should happen in Wicket.
-  # Exact same validation behavior should be simulated.  For e.g. if the Seam booking example makes an Ajax request to the server to validate form input fields that the user is filling out, the same should be done in Wicket.
+  # Exact same validation behavior should be simulated.  Form fields are flagged as "required" where applicable.  And for e.g. if the Seam booking example makes an Ajax request to the server to validate form input fields that the user is filling out, the same should be done in Wicket.
   # In addition to the above point, when the user clicks the submit button and there are validation errors, the error messages should still be displayed alongside each form input field even though the page has not been refreshed using Ajax.
   # Exact same JPA entities should be used
     ** note: this has been relaxed for Grails and equivalent GORM entities have been instead
