@@ -27,16 +27,11 @@ This document outlines the functionality, specifications and screen-by-screen br
   # The views should be migrated one-to-one, obviously merging of two screens into one or skipping a screen is not allowed
   # Orginal logical names of the screens should be retained as far as possible, but using framework conventions, for e.g. booking.xhtml becomes BookingPage.html
   # HTML and CSS should be logically identical to the baseline so as to replicate the look and feel.  Exceptions are where some static text is changed (e.g. built using Apache Wicket) and where the underlying framework injects JavaScript and modifies the HTML whitespace
-  # Exact same JPA entities should be used
-    ** note: this has been relaxed for Grails and equivalent GORM entities have been instead
-  # Exact same JPA configuration should be used (i.e. identical META-INF/persistence.xml)
-    ** note: this has been relaxed for Grails / GORM since there is no persistence.xml but the same Hibernate configuration is used in conf/DataSource.groovy
-  # Exact same initial database import (import.sql) should be used
-    ** note: slight changes for Grails because of the way GORM works, the only changes in this case are (a) Customer table renamed to User (b) "auto-increment" id column added to User table (c) "version" columns added to all 3 tables (User, Hotel, Booking)
-  # Exact same database queries (JPA-QL) used be used.
   # Exact same session usage should be simulated.  For e.g. if the Seam booking example proceeds to push a list of search results into the HttpSession as a result of some action, the same thing should be done in Wicket.
   # Exact same validation behavior should be simulated.  For e.g. if the Seam booking example makes an Ajax request to the server to validate form input fields that the user is filling out, the same should be done in Wicket.
   # In addition to the above point, when the user clicks the submit button and there are validation errors, the error messages should still be displayed alongside each form input field even though the page has not been refreshed using Ajax.
+  # Exact same JPA entities should be used
+    ** note: this has been relaxed for Grails and equivalent GORM entities have been instead
   # Hibernate Validator: the Seam booking example uses JPA entities annotated with Hibernate Validator annotations such as @Length and @NotNull, and form validation has to re-use these rules.  This should be adhered to.
     ** note: this has been relaxed for Grails because of the nature of GORM, so GORM constraints have been used instead of Hibernate Validator annotations.  However, the form validation re-uses the entity constraints as expected.
   # The browser back-button should ideally work as expected, either the page requested is shown or a "page expired" error is diplayed - although this is not verified as part of the JMeter script.
@@ -48,6 +43,11 @@ This document outlines the functionality, specifications and screen-by-screen br
   # WEB-INF/web.xml should be identical except for framework-specific configuration
     ** note: this can't be practically done for Grails for obvious reasons
   # Versions of Jetty, Hibernate and HSQLDB used for deployment when running the test should be the same.
+  # Exact same JPA configuration should be used (i.e. identical META-INF/persistence.xml)
+    ** note: this has been relaxed for Grails / GORM since there is no persistence.xml but the same Hibernate configuration is used in conf/DataSource.groovy
+  # Exact same initial database import (import.sql) should be used
+    ** note: slight changes for Grails because of the way GORM works, the only changes in this case are (a) Customer table renamed to User (b) "auto-increment" id column added to User table (c) "version" columns added to all 3 tables (User, Hotel, Booking)
+  # Exact same database queries (JPA-QL) used be used.
 
 = Screen Notes =
 == Home ==
@@ -55,7 +55,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   * contains login form
   * invalid login should display an error message as well as log an error
   * has a link to the "register" page
-  * successful login should flash a welcome message on the next screen: "main"
+  * successful login should display a welcome message on the next screen: "main"
 
 == Register ==
   * One of the 2 un-secured pages that does not use the common template
@@ -117,7 +117,8 @@ This document outlines the functionality, specifications and screen-by-screen br
   * both buttons are form submit buttons
 
 = JMeter Test Plan Notes =
-  * refer image below
+  * open the booking.jmx file in JMeter to see the structure [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa/src/test/jmeter example]
   * login and logout happens only once for each virtual user
   * the main "loop" is run 10 times (per user)
-  * JMeter scripts should of course be logically same for each: Seam, Wicket etc.
+  * additional resources part of the web-pages (e.g CSS, JS and images) are ignored
+  * JMeter scripts should of course be logically same for each: Seam, Wicket etc, including simulation of Ajax requests
