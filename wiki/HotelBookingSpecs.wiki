@@ -9,7 +9,7 @@ This document outlines the functionality, specifications and screen-by-screen br
 
 = Reference Application =
 
-  * the original application is the JPA version of the Seam Hotel Booking example: [http://anonsvn.jboss.org/repos/seam/branches/community/Seam_2_2/examples/jpa/ SVN]
+  * the original application is the JPA version of the Seam Hotel Booking example: [http://fisheye.jboss.org/browse/Seam/tags/JBoss_Seam_2_2_0_GA/examples/jpa FishEye] | [http://anonsvn.jboss.org/repos/seam/branches/community/Seam_2_2/examples/jpa/ SVN]
   * the "baseline" application is the above with minimal cosmetic changes to make it viable as a comparison point [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa browse] | [http://perfbench.googlecode.com/svn/trunk/perfbench/seam-jpa SVN]
   * list of cosmetic changes made:
     ** now using maven folder structure along with a maven project file (pom.xml)
