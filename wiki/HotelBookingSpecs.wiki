@@ -82,6 +82,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   * the search input text field should update the hotel search results over Ajax (autocomplete style) with every keystroke
   * there is a page-size drop-down (which defaults to 10) where the choices are 5, 10 and 20
   * if the search form submit button is used, it submits and refreshes the hotel search results over Ajax
+  * whenever an Ajax refresh of the hotel search results is in progress, a visual indicator (spinner.gif) is to be momentarily displayed, the indicator is positioned next to the submit button after the input (search) text field
   * hotel search results are paginated and the current (session) page size is used to query the database
   * any update of the hotel search results is cached in the user's session
   * the search string, page size and current page (pagination) index are also cached in the session
