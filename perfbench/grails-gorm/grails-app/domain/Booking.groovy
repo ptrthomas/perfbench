@@ -20,7 +20,7 @@ class Booking implements Serializable {
     }
 
     int getNights() {
-        (checkoutDate.time - checkinDate.time) / 1000 / 60 / 60 / 24;
+        (checkoutDate.time - checkinDate.time) / 1000 / 60 / 60 / 24
     }
 
     String getDescription() {
@@ -32,6 +32,6 @@ class Booking implements Serializable {
         creditCard(blank:false, matches: '^\\d*$', size:16..16)
         creditCardName(blank:false, size:3..70)
     }
-	
+    
 }
 
