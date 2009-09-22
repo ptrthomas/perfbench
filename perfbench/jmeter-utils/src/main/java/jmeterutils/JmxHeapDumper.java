@@ -10,10 +10,10 @@ public class JmxHeapDumper {
 
     public static void main(String[] args) throws Exception {
         // http://www.mhaller.de/archives/85-Java-heap-dumps.html
-        String url = "service:jmx:rmi:///jndi/rmi://localhost:9004/jmxrmi";
+        String url = "service:jmx:rmi:///jndi/rmi://127.0.0.1:9004/jmxrmi";
         JMXServiceURL jmxURL = new JMXServiceURL(url);
         JMXConnector connector = JMXConnectorFactory.connect(jmxURL);
-        MBeanServerConnection connection = connector.getMBeanServerConnection();        
+        MBeanServerConnection connection = connector.getMBeanServerConnection();
         ObjectName name = new ObjectName("com.sun.management:type=HotSpotDiagnostic");
         Object[] params = new Object[] { args[0], Boolean.TRUE };
         String[] signature = new String[] { String.class.getName(), boolean.class.getName() };
@@ -22,7 +22,7 @@ public class JmxHeapDumper {
         } catch(Exception e) {
             System.out.println("heap dump attempt failed: " + e);
             System.out.println("trying alternate approach...");
-            // http://blog.igorminar.com/2007/03/how-java-application-can-discover-its.html                        
+            // http://blog.igorminar.com/2007/03/how-java-application-can-discover-its.html
             String jvmPid = (String) connection.getAttribute(new ObjectName("java.lang:type=Runtime"), "Name");
             String pid = jvmPid.substring(0, jvmPid.lastIndexOf('@'));
             System.out.printf("jvmPid = '%s', pid = '%s'\n", jvmPid, pid);
