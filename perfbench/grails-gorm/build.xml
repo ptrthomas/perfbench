@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="grails-gorm" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+<project name="grails-gorm" basedir=".">
     
-    <import file="../build.xml"/>   
-    
+    <import file="../build.xml"/>    
     <property file="../build.properties"/>
     <property name="war.name" value="grails-gorm"/>
-    <property name="jmeter.script" value="etc/booking.jmx"/>
-    <property name="start.class" value="start.Start"/>
-    <property name="stop.class" value="start.Stop"/>
-    <property name="home.page.url" value="http://127.0.0.1:8080/${war.name}/"/>
+    <property name="jmeter.script" value="etc/booking.jmx"/>    
     
     <target name="check-war-exploded">
         <available file="target/${war.name}/WEB-INF/web.xml" property="war.exploded"/>
@@ -19,36 +15,25 @@
         <antcall target="war-unzip"/>
     </target>
     
-    <target name="jetty-jars-init" depends="mvn-init" unless="jetty.jars">
-        <artifact:dependencies pathId="jetty.jars">
-          <dependency groupId="org.mortbay.jetty" artifactId="jetty" version="6.1.9"/>
-          <dependency groupId="org.mortbay.jetty" artifactId="jetty-util" version="6.1.9"/>          
-          <localRepository refid="local.repository"/>
-        </artifact:dependencies>    
-    </target>
-    
-    <target name="compile-test" depends="war-exploded, jetty-jars-init">
-        <mkdir dir="target/test-classes"/>
-        <javac srcdir="etc" destdir="target/test-classes" classpathref="jetty.jars"
-                debug="${javac.debug}" source="${javac.source}" target="${javac.source}"/>     
-    </target>
-    
-    <target name="mvn-grails-war" depends="mvn-init">         
+    <target name="mvn-grails-war" depends="mvn-init" xmlns:artifact="urn:maven-artifact-ant">         
         <artifact:mvn pom="pom.xml" >
             <arg value="grails:war"/>
             <localRepository refid="local.repository"/>
         </artifact:mvn>        
-    </target>   
+    </target>     
     
-    <target name="jetty-init" depends="compile-test" unless="jetty-classpath">       
+    <target name="jetty-init" depends="utils-compile, war-exploded">
+        <property name="context.path" value="/${war.name}"/>
+        <property name="war.path" value="target/${war.name}"/>
         <path id="jetty.classpath">            
-            <path path="target/test-classes"/>
-            <path refid="jetty.jars"/>
+            <path path="../jmeter-utils/target/classes"/>
+            <path refid="utils.classpath"/>            
         </path>
+        <property name="jetty.jvmarg" value=""/>        
     </target>  
     
     <target name="war-unzip">
         <unzip src="grails-gorm-1.0-SNAPSHOT.war" dest="target/${war.name}"/>
-    </target>
+    </target>        
               
 </project>
