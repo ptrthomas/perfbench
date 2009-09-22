@@ -87,18 +87,6 @@
             <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -145,8 +133,7 @@
 
     <properties>
         <wicket.version>1.4.1</wicket.version>
-        <slf4j.version>1.4.2</slf4j.version>
-        <jetty.version>6.1.9</jetty.version>
+        <slf4j.version>1.4.2</slf4j.version>        
     </properties>
 
 </project>
