@@ -61,7 +61,7 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
         <copy todir="target/classes">
             <fileset dir="src/main/java" excludes="**/*.java"/>
         </copy>         
-        <copy todir="target/classes" failonerror="false">
+        <copy todir="target/classes">
             <fileset dir="src/main/resources"/>
         </copy>              
     </target>        
@@ -216,9 +216,18 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
         <antcall target="jmeter-report"/>     
     </target>
     
-    <target name="jmeter-cycle-warmup" depends="jmeter-input-warmup, jmeter-input, jmeter-init">        
+    <target name="jmeter-cycle-warmup" depends="jmeter-input-warmup, jmeter-input, jmeter-init, jetty-init">        
         <parallel>
-            <antcall target="jetty-start"/>
+            <java classname="jmeterutils.JettyStart" fork="true" output="../target/warmup.log">
+                <classpath refid="jetty.classpath"/>
+                <jvmarg value="-Xms128m"/>
+                <jvmarg value="-Xmx128m"/>
+                <jvmarg value="-server"/>
+                <jvmarg value="${jetty.jvmarg}"/>
+                <arg value="${context.path}"/>
+                <arg value="${war.path}"/>                
+                <jvmarg value="-XX:+PrintCompilation"/>
+            </java>
             <sequential>                
                 <antcall target="jmeter-wait"/>                          
                 <antcall target="jmeter">
@@ -275,6 +284,9 @@ jmeter.home=C:/jakarta-jmeter-2.3.2
     
     <target name="jetty-init" depends="compile, utils-compile">
         <property name="context.path" value="/${war.name}"/>
+        <condition property="war.path" value="${war.path}" else="src/main/webapp">
+            <isset property="war.path"/>
+        </condition>        
         <property name="war.path" value="src/main/webapp"/>
         <path id="jetty.classpath">
             <path path="target/classes"/>
