@@ -14,7 +14,7 @@ object HomePage {
 
 class HomePage extends WebPage {  
 
-  def logger = HomePage.logger
+  val logger = HomePage.logger
   
   add(new StatelessForm("form") {
     val username = new TextField("username", new Model(""))
@@ -32,9 +32,9 @@ class HomePage extends WebPage {
       query.setParameter("password", password.getInput())
       val users = query.getResultList().asInstanceOf[java.util.List[User]]
       if (users.size == 0) {
-          logger.error("Login failed")
-          error("Login failed")
-          return
+        logger.error("Login failed")
+        error("Login failed")
+        return
       }
       val user = users.get(0)
       val session = BookingSession.get()

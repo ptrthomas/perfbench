@@ -31,7 +31,7 @@ class BookingApplication extends WebApplication {
             throw new RestartResponseException(classOf[HomePage])
           }
         }
-        true
+        return true
       }
     })
     getMarkupSettings().setCompressWhitespace(true)
@@ -41,22 +41,17 @@ class BookingApplication extends WebApplication {
     mountBookmarkablePage("/settings", classOf[PasswordPage])
   }
 
-  override def newRequestCycle(request: Request, response: Response) = {
-    new JpaRequestCycle(this, request.asInstanceOf[WebRequest], response)
-  }
+  override def newRequestCycle(request: Request, response: Response) = 
+    new JpaRequestCycle(this, request.asInstanceOf[WebRequest], response)  
 
-  override def newSession(request: Request, response: Response) = {
-    new BookingSession(request)
-  }
+  override def newSession(request: Request, response: Response) = new BookingSession(request)
 
-  override def newRequestCycleProcessor = {
-    new UrlCompressingWebRequestProcessor()
-  }
+  override def newRequestCycleProcessor = new UrlCompressingWebRequestProcessor()
 
   override def newConverterLocator: IConverterLocator = {
     val converterLocator = new ConverterLocator()
     val converter = new BigDecimalConverter() {
-        override def getNumberFormat(locale: Locale) = NumberFormat.getCurrencyInstance(Locale.US)
+      override def getNumberFormat(locale: Locale) = NumberFormat.getCurrencyInstance(Locale.US)
     }
     converterLocator.set(classOf[BigDecimal], converter)
     return converterLocator

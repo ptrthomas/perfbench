@@ -1,8 +1,7 @@
 package swicketjpa.wicket
 
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.markup.html.form.Button
-import org.apache.wicket.markup.html.form.Form
+import org.apache.wicket.markup.html.form._
 import org.apache.wicket.markup.html.link.BookmarkablePageLink
 import org.apache.wicket.model.CompoundPropertyModel
 import swicketjpa.entity.Booking

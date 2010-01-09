@@ -20,7 +20,7 @@ import swicketjpa.entity.Booking
 import swicketjpa.entity.Hotel
 
 object MainPage {
-  def pageSizes = Arrays.asList(5, 10, 20)
+  val pageSizes = Arrays.asList(5, 10, 20)
 }
 
 class MainPage extends TemplatePage {
@@ -30,15 +30,11 @@ class MainPage extends TemplatePage {
     val searchField = new TextField("searchString")
     add(searchField)
     searchField.add(new AjaxFormComponentUpdatingBehavior("onkeyup") {
-      override def onUpdate(target: AjaxRequestTarget) = {
-        refreshHotelsContainer(target)
-      }
+      override def onUpdate(target: AjaxRequestTarget) = refreshHotelsContainer(target)
     })
     add(new DropDownChoice("pageSize", MainPage.pageSizes))
     add(new AjaxButton("submit") {
-      override def onSubmit(target: AjaxRequestTarget, form: Form[_]) = {
-        refreshHotelsContainer(target)
-      }
+      override def onSubmit(target: AjaxRequestTarget, form: Form[_]) = refreshHotelsContainer(target)      
     })
     override def getAjaxIndicatorMarkupId = "spinner"
   })
@@ -48,7 +44,7 @@ class MainPage extends TemplatePage {
     override def isVisible = !isHotelsVisible()
   })
   val hotelsTable = new WebMarkupContainer("hotelsTable") {
-      override def isVisible = isHotelsVisible()      
+    override def isVisible = isHotelsVisible()      
   }
   hotelsContainer.add(hotelsTable)
   hotelsTable.add(new PropertyListView[Hotel]("hotels") {
@@ -66,7 +62,7 @@ class MainPage extends TemplatePage {
   })
   hotelsContainer.add(new Link("moreResultsLink") {
     override def onClick = {
-      val session = getBookingSession();
+      val session = getBookingSession()
       session.page = session.page + 1
       loadHotels()
     }
@@ -75,14 +71,12 @@ class MainPage extends TemplatePage {
       return hotels != null && hotels.size == getBookingSession().pageSize
     }
   })
-  if(getBookingSession().bookings == null) {
-    loadBookings()
-  }
+  if(getBookingSession().bookings == null) loadBookings()
   add(new WebMarkupContainer("noBookingsContainer") {
     override def isVisible = !isBookingsVisible()
   })
   val bookingsTable = new WebMarkupContainer("bookingsTable") {
-      override def isVisible = isBookingsVisible()
+    override def isVisible = isBookingsVisible()
   }
   add(bookingsTable)
   bookingsTable.add(new PropertyListView[Booking]("bookings") {
