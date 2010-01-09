@@ -12,9 +12,7 @@ import org.apache.wicket.markup.html.border.Border
 import org.apache.wicket.markup.html.form.FormComponent
 import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.CompoundPropertyModel
-import org.apache.wicket.validation.IValidatable
-import org.apache.wicket.validation.IValidator
-import org.apache.wicket.validation.ValidationError
+import org.apache.wicket.validation._
 import org.hibernate.validator.ClassValidator
 
 object EditBorder {
@@ -37,23 +35,20 @@ class EditBorder(id: String) extends Border(id) {
   def add[T](fc: FormComponent[T], ajax: Boolean) = {
     super.add(fc)
     fc.add(new AbstractBehavior() {
-        override def beforeRender(c: Component) {
-            super.beforeRender(c)
-            val model = c.getInnermostModel()
-            if (model != null && model.isInstanceOf[CompoundPropertyModel[T]]) {                
-                val clazz = model.getClass().asInstanceOf[Class[T]]
-                if (clazz.isAnnotationPresent(classOf[Entity])) {                    
-                    fc.add(getValidator(clazz, fc.getId()))
-                }
-            }
-        }
-    })
-    super.add(new AbstractBehavior() {
-      override def onComponentTag(c: Component, tag: ComponentTag) = {
-        if (!fc.isValid()) {
-          tag.put("class", "input errors");
+      override def beforeRender(c: Component) = {
+        super.beforeRender(c)
+        val model = c.getInnermostModel()
+        if (model != null && model.isInstanceOf[CompoundPropertyModel[T]]) {
+          val clazz = model.getClass().asInstanceOf[Class[T]]
+          if (clazz.isAnnotationPresent(classOf[Entity])) {
+            fc.add(getValidator(clazz, fc.getId()))
+          }
         }
       }
+    })
+    super.add(new AbstractBehavior() {
+      override def onComponentTag(c: Component, tag: ComponentTag) =
+        if (!fc.isValid()) tag.put("class", "input errors")
     })
     if(ajax) {
       setOutputMarkupId(true)
@@ -62,16 +57,15 @@ class EditBorder(id: String) extends Border(id) {
           getFormComponent().validate()
           target.addComponent(EditBorder.this)
         }
-        override def onError(target: AjaxRequestTarget, e: RuntimeException) = {
-          target.addComponent(EditBorder.this)
-        }
+        override def onError(target: AjaxRequestTarget, e: RuntimeException) =
+          target.addComponent(EditBorder.this)        
       })
     }
   }
 
   def getValidator[T](clazz: Class[T], expression: String) = {
     new IValidator[T]() {
-      override def validate(v: IValidatable[T]) {
+      override def validate(v: IValidatable[T]) = {
         var cv = EditBorder.classValidatorCache.get(clazz)
         if (cv == null) {
           cv = new ClassValidator(clazz)

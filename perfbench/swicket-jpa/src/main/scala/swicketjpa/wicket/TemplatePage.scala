@@ -13,7 +13,7 @@ object TemplatePage {
 
 class TemplatePage extends WebPage {
 
-  def logger = TemplatePage.logger
+  val logger = TemplatePage.logger
 
   add(new Label("userName", new PropertyModel(this, "session.user.name")))
   add(new BookmarkablePageLink("search", classOf[MainPage]))

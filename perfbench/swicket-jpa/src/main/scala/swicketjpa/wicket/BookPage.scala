@@ -4,15 +4,10 @@ import java.util.Arrays
 import java.util.Calendar
 import org.apache.wicket.extensions.yui.calendar.DateField
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.markup.html.form.DropDownChoice
-import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.markup.html.form.IChoiceRenderer
-import org.apache.wicket.markup.html.form.RadioChoice
-import org.apache.wicket.markup.html.form.TextField
+import org.apache.wicket.markup.html.form._
 import org.apache.wicket.markup.html.link.BookmarkablePageLink
 import org.apache.wicket.model.CompoundPropertyModel
-import org.apache.wicket.validation.IValidatable
-import org.apache.wicket.validation.ValidationError
+import org.apache.wicket.validation._
 import org.apache.wicket.validation.validator.AbstractValidator
 import swicketjpa.entity.Booking
 

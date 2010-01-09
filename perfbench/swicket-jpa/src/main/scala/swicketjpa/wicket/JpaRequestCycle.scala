@@ -31,21 +31,15 @@ class JpaRequestCycle(application: WebApplication, request: WebRequest, response
   override def onEndRequest = {
     super.onEndRequest()
     if (em != null) {
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().commit()
-        }
-        em.close()
+      if (em.getTransaction().isActive()) em.getTransaction().commit()
+      em.close()
     }
-    if (_endConversation) {
-        getRequest().getPage().getPageMap().remove()
-    }
+    if (_endConversation) getRequest().getPage().getPageMap().remove()    
   }
 
   override def onRuntimeException(page: Page, e: RuntimeException): Page = {
     if (em != null) {
-      if (em.getTransaction().isActive()) {
-        em.getTransaction().rollback()
-      }
+      if (em.getTransaction().isActive()) em.getTransaction().rollback()
       em.close()
     }
     if (e.isInstanceOf[PageExpiredException]) {
@@ -55,8 +49,6 @@ class JpaRequestCycle(application: WebApplication, request: WebRequest, response
     return super.onRuntimeException(page, e)
   }
 
-  def endConversation() = {
-    _endConversation = true
-  }
+  def endConversation() = _endConversation = true  
 
 }
