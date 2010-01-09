@@ -29,7 +29,7 @@
             <path path="../jmeter-utils/target/classes"/>
             <path refid="utils.classpath"/>            
         </path>
-        <property name="jetty.jvmarg" value=""/>        
+        <property name="jetty.jvmarg" value=""/>      
     </target>  
     
     <target name="war-unzip">
