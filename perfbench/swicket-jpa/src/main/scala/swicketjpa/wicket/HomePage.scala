@@ -14,7 +14,7 @@ object HomePage {
 
 class HomePage extends WebPage {  
 
-  val logger = HomePage.logger
+  def logger = HomePage.logger
   
   add(new StatelessForm("form") {
     val username = new TextField("username", new Model(""))
