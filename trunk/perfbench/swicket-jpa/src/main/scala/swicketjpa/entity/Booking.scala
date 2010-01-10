@@ -29,11 +29,11 @@ class Booking {
 
   @NotNull
   @Basic
-  // @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.DATE)
   var checkinDate: Date = null
 
   @Basic
-  // @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.DATE)
   @NotNull
   var checkoutDate: Date = null
 
