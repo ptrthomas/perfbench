@@ -8,9 +8,9 @@ import org.apache.wicket.model.CompoundPropertyModel
 import grocketjpa.entity.Booking
 import grocketjpa.entity.Hotel
 
-public class HotelPage extends TemplatePage {
+class HotelPage extends TemplatePage {
 
-    public HotelPage(Hotel hotel) {
+    HotelPage(Hotel hotel) {
         setDefaultModel new CompoundPropertyModel(hotel)
         add new Label("name")
         add new Label("address")
@@ -20,8 +20,8 @@ public class HotelPage extends TemplatePage {
         add new Label("country")
         add new Label("price")
         def form = new Form("form") {
-            def void onSubmit() {
-                def booking = new Booking(hotel, session.getUser())
+            void onSubmit() {
+                def booking = new Booking(hotel: hotel, user: session.getUser())
                 def calendar = Calendar.getInstance()
                 booking.checkinDate = calendar.time
                 calendar.add(Calendar.DAY_OF_MONTH, 1)

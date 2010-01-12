@@ -20,9 +20,9 @@ class HomePage extends WebPage {
         statelessHint = true
     }
 
-    private static class LoginForm extends StatelessForm {
+    static class LoginForm extends StatelessForm {
 
-        def static final logger = LoggerFactory.getLogger(HomePage.class)
+        static final logger = LoggerFactory.getLogger(HomePage.class)
 
         def username = new TextField("username", new Model(""))
         def password = new PasswordTextField("password", new Model(""))
@@ -35,7 +35,7 @@ class HomePage extends WebPage {
             add new FeedbackPanel("messages")
         }
         
-        def void onSubmit() {
+        void onSubmit() {
             def em = JpaRequestCycle.get().entityManager
             def query = em.createQuery("select u from User u"
                     + " where u.username = :username and u.password = :password")

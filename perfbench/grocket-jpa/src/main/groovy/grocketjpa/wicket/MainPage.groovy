@@ -23,11 +23,11 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.PropertyModel
 
-public class MainPage extends TemplatePage {  
+class MainPage extends TemplatePage {  
 
     WebMarkupContainer hotelsContainer
 
-    public MainPage() {
+    MainPage() {
         setDefaultModel new CompoundPropertyModel(new PropertyModel(this, "session"))
         add new FeedbackPanel("messages")
         add new SearchForm("form", this)
@@ -35,13 +35,13 @@ public class MainPage extends TemplatePage {
         add hotelsContainer.setOutputMarkupId(true)
 
         hotelsContainer.add(new WebMarkupContainer("noResultsContainer") {            
-            def boolean isVisible() {
+            boolean isVisible() {
                 return !isHotelsVisible()
             }
         })
 
         def hotelsTable = new WebMarkupContainer("hotelsTable") {
-            def boolean isVisible() {
+            boolean isVisible() {
                 return isHotelsVisible()
             }
         }
@@ -49,7 +49,7 @@ public class MainPage extends TemplatePage {
         hotelsContainer.add hotelsTable
 
         hotelsTable.add(new PropertyListView<Hotel>("hotels") {            
-            def void populateItem(ListItem<Hotel> item) {
+            void populateItem(ListItem<Hotel> item) {
                 item.add new Label("name")
                 item.add new Label("address")
                 item.add new Label("city").setRenderBodyOnly(true)
@@ -57,7 +57,7 @@ public class MainPage extends TemplatePage {
                 item.add new Label("country").setRenderBodyOnly(true)
                 item.add new Label("zip")
                 item.add(new Link<Hotel>("view", item.getModel()) {                    
-                    def void onClick() {
+                    void onClick() {
                         setResponsePage new HotelPage(getModelObject())
                     }
                 })
@@ -65,11 +65,11 @@ public class MainPage extends TemplatePage {
         })
 
         hotelsContainer.add(new Link("moreResultsLink") {            
-            def void onClick() {
+            void onClick() {
                 session.page++
                 loadHotels()
             }            
-            def boolean isVisible() {
+            boolean isVisible() {
                 def hotels = session.hotels
                 return hotels != null && hotels.size() == session.pageSize
             }
@@ -80,13 +80,13 @@ public class MainPage extends TemplatePage {
         }
 
         add(new WebMarkupContainer("noBookingsContainer") {            
-            def boolean isVisible() {
+            boolean isVisible() {
                 return !isBookingsVisible()
             }
         })
 
         def bookingsTable = new WebMarkupContainer("bookingsTable") {
-            def boolean isVisible() {
+            boolean isVisible() {
                 return isBookingsVisible()
             }
         }
@@ -94,7 +94,7 @@ public class MainPage extends TemplatePage {
         add bookingsTable
 
         bookingsTable.add(new PropertyListView<Booking>("bookings") {            
-            def void populateItem(ListItem<Booking> item) {
+            void populateItem(ListItem<Booking> item) {
                 item.add new Label("hotel.name")
                 item.add new Label("hotel.address")
                 item.add new Label("hotel.city").setRenderBodyOnly(true)
@@ -104,7 +104,7 @@ public class MainPage extends TemplatePage {
                 item.add new Label("checkoutDate")
                 item.add new Label("id")
                 item.add(new Link<Booking>("cancel", item.getModel()) {                    
-                    def void onClick() {
+                    void onClick() {
                         def booking = modelObject
                         // logger.info("Cancel booking: {} for {}", booking.id, session.user.username);
                         def em = getEntityManager()
@@ -121,43 +121,43 @@ public class MainPage extends TemplatePage {
 
     }
 
-    private static class SearchForm extends Form implements IAjaxIndicatorAware {
+    static class SearchForm extends Form implements IAjaxIndicatorAware {
 
-        def final pageSizes = [5, 10, 20]
+        static final pageSizes = [5, 10, 20, 50]
 
         MainPage mainPage
 
-        public SearchForm(id, mainPage) {
+        SearchForm(id, mainPage) {
             super(id)
             this.mainPage = mainPage
             def searchField = new TextField("searchString")
             add searchField
             searchField.add(new AjaxFormComponentUpdatingBehavior("onkeyup") {                
-                def void onUpdate(AjaxRequestTarget target) {
+                void onUpdate(AjaxRequestTarget target) {
                     mainPage.refreshHotelsContainer(target)
                 }
             })
             add new DropDownChoice("pageSize", pageSizes)
             add(new AjaxButton("submit") {                
-                def void onSubmit(AjaxRequestTarget target, Form form) {
+                void onSubmit(AjaxRequestTarget target, Form form) {
                     mainPage.refreshHotelsContainer(target)
                 }
             })
         }
         
-        def String getAjaxIndicatorMarkupId() {
+        String getAjaxIndicatorMarkupId() {
             return "spinner"
         }
 
     }
 
-    def refreshHotelsContainer(AjaxRequestTarget target) {
+    void refreshHotelsContainer(AjaxRequestTarget target) {
         session.page = 0
         loadHotels()
         target.addComponent(hotelsContainer)
     }
 
-    def void loadHotels() {
+    void loadHotels() {
         def searchString = session.searchString
         def pattern = searchString == null ? "%" : '%' + searchString.toLowerCase().replace('*', '%') + '%'
         def query = entityManager.createQuery("select h from Hotel h"
@@ -171,12 +171,12 @@ public class MainPage extends TemplatePage {
         session.hotels = query.resultList
     }
 
-    private boolean isHotelsVisible() {        
+    boolean isHotelsVisible() {        
         def hotels = session.hotels
         return hotels != null && !hotels.empty
     }
 
-    private boolean isBookingsVisible() {        
+    boolean isBookingsVisible() {        
         return !session.bookings.empty
     }
 

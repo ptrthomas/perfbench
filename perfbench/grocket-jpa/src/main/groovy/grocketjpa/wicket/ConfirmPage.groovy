@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink
 import org.apache.wicket.model.CompoundPropertyModel
 import grocketjpa.entity.Booking
 
-public class ConfirmPage extends TemplatePage {
+class ConfirmPage extends TemplatePage {
 
     def booking
 
@@ -25,7 +25,7 @@ public class ConfirmPage extends TemplatePage {
         add new Label("checkoutDate")
         add new Label("creditCard")
         def form = new Form("form") {
-            def void onSubmit() {
+            void onSubmit() {
                 getEntityManager().persist(booking)
                 session.info(String.format("Thank you, %s, your confimation number for %s is %s",
                         session.user.name, booking.hotel.name, booking.id))
@@ -34,10 +34,10 @@ public class ConfirmPage extends TemplatePage {
                 endConversation()
                 setResponsePage MainPage.class
             }
-        };
+        }
         add form
         form.add(new Button("revise") {            
-            def void onSubmit() {
+            void onSubmit() {
                 setResponsePage new BookPage(booking)
             }
         }.setDefaultFormProcessing(false))

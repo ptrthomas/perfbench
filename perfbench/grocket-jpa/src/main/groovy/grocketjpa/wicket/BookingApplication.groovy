@@ -26,7 +26,7 @@ class BookingApplication extends WebApplication {
 
     def entityManagerFactory
     
-    def Class getHomePage() {
+    def Class getHomePage() { 
         MainPage.class
     }
     
@@ -34,10 +34,8 @@ class BookingApplication extends WebApplication {
         super.init()
         entityManagerFactory = Persistence.createEntityManagerFactory("bookingDatabase")
         securitySettings.authorizationStrategy = new IAuthorizationStrategy() {            
-            def boolean isActionAuthorized(Component c, Action a) {
-                true
-            }            
-            def boolean isInstantiationAuthorized(Class clazz) {
+            boolean isActionAuthorized(Component c, Action a) { true }
+            boolean isInstantiationAuthorized(Class clazz) {
                 if (TemplatePage.class.isAssignableFrom(clazz)) {
                     if (BookingSession.get().user == null) {
                         throw new RestartResponseException(HomePage.class)
@@ -53,19 +51,19 @@ class BookingApplication extends WebApplication {
         mountBookmarkablePage("/settings", PasswordPage.class)
     }
     
-    def RequestCycle newRequestCycle(Request request, Response response) {
+    RequestCycle newRequestCycle(Request request, Response response) {
         new JpaRequestCycle(this, (WebRequest) request, response)
     }
     
-    def BookingSession newSession(Request request, Response response) {
+    BookingSession newSession(Request request, Response response) {
         new BookingSession(request)
     }
     
-    def IRequestCycleProcessor newRequestCycleProcessor() {
+    IRequestCycleProcessor newRequestCycleProcessor() {
         new UrlCompressingWebRequestProcessor()
     }
     
-    def ISessionStore newSessionStore() {
+    ISessionStore newSessionStore() {
         if(configurationType.equalsIgnoreCase(DEVELOPMENT)) {
             println "development mode, using http session store"
             new HttpSessionStore(this)
@@ -74,12 +72,11 @@ class BookingApplication extends WebApplication {
         }
     }
     
-    def IConverterLocator newConverterLocator() {
-        ConverterLocator converterLocator = new ConverterLocator()
-        BigDecimalConverter converter = new BigDecimalConverter() {
-            @Override
-            public NumberFormat getNumberFormat(Locale locale) {
-                return DecimalFormat.getCurrencyInstance(Locale.US)
+    IConverterLocator newConverterLocator() {
+        def converterLocator = new ConverterLocator()
+        def converter = new BigDecimalConverter() {
+            NumberFormat getNumberFormat(Locale locale) {
+                DecimalFormat.getCurrencyInstance(Locale.US)
             }
         }
         converterLocator.set(BigDecimal.class, converter)
