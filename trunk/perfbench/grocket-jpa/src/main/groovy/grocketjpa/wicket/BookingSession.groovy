@@ -22,7 +22,7 @@ class BookingSession extends WebSession {
     int pageSize = 10
     int page
 
-    def static BookingSession get() {
+    static BookingSession get() {
         def session = Session.get()
         if (BookingSession.class.classLoader != session.class.classLoader) {
             def os = new ByteArrayOutputStream()
@@ -31,7 +31,7 @@ class BookingSession extends WebSession {
             oo.close()
             def is = new ByteArrayInputStream(os.toByteArray())
             def oi = new ObjectInputStream(is) {
-               def Class resolveClass(ObjectStreamClass clazz) {
+               Class resolveClass(ObjectStreamClass clazz) {
                     Class.forName(clazz.name, true, BookingSession.class.classLoader)
                }
             }
@@ -43,8 +43,8 @@ class BookingSession extends WebSession {
         return session
     }
 
-    def BookingSession clone() {
-        BookingSession session = new BookingSession(RequestCycle.get().request)
+    BookingSession clone() {
+        def session = new BookingSession(RequestCycle.get().request)
         session.user = user
         session.searchString = searchString
         session.hotels = hotels

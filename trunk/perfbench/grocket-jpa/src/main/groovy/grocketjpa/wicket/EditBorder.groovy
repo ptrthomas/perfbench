@@ -20,9 +20,9 @@ import org.apache.wicket.validation.ValidationError
 import org.hibernate.validator.ClassValidator
 import org.hibernate.validator.InvalidValue
 
-public class EditBorder extends Border {
+class EditBorder extends Border {
 
-    public EditBorder(String id) {
+    EditBorder(String id) {
         super(id)
         add new FeedbackPanel("message", new ContainerFeedbackMessageFilter(this))
     }
@@ -44,7 +44,7 @@ public class EditBorder extends Border {
         super.add(fc)
         fc.add new EditBorderBehavior(fc)
         add(new AbstractBehavior() {            
-            def void onComponentTag(Component c, ComponentTag tag) {
+            void onComponentTag(Component c, ComponentTag tag) {
                 if (!fc.valid) {
                     tag.put("class", "input errors")
                 }
@@ -53,41 +53,41 @@ public class EditBorder extends Border {
         if(ajax) {
             setOutputMarkupId true
             fc.add(new AjaxFormComponentUpdatingBehavior("onblur") {
-                def void onUpdate(AjaxRequestTarget target) {
+                void onUpdate(AjaxRequestTarget target) {
                     getFormComponent().validate()
                     target.addComponent(EditBorder.this)
                 }                
-                def void onError(AjaxRequestTarget target, RuntimeException e) {
+                void onError(AjaxRequestTarget target, RuntimeException e) {
                     target.addComponent(EditBorder.this)
                 }
             })
         }
     }
 
-    private static class EditBorderBehavior extends AbstractBehavior {
+    static class EditBorderBehavior extends AbstractBehavior {
 
         def static final classValidatorCache = [:]
 
         FormComponent fc
 
-        EditBorderBehavior(FormComponent fc) {
+        EditBorderBehavior(fc) {
             this.fc = fc
         }
 
-        public void beforeRender(Component c) {
+        void beforeRender(Component c) {
             // super.beforeRender(c)
             def model = c.innermostModel
             if (model != null && model instanceof CompoundPropertyModel) {
-                Class clazz = model.object.class
+                def clazz = model.object.class
                 if (clazz.isAnnotationPresent(Entity.class)) {
                     fc.add(getValidator(clazz, fc.id))
                 }
             }
         }
 
-        def IValidator getValidator(final Class clazz, final String expression) {
-            return new IValidator() {
-                public void validate(IValidatable v) {
+        IValidator getValidator(final Class clazz, final String expression) {
+            new IValidator() {
+                void validate(IValidatable v) {
                     def cv = classValidatorCache.get(clazz)
                     if (cv == null) {
                         cv = new ClassValidator(clazz)

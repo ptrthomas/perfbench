@@ -20,9 +20,9 @@ import org.apache.wicket.validation.ValidationError
 import org.apache.wicket.validation.validator.AbstractValidator
 import grocketjpa.entity.Booking
 
-public class BookPage extends TemplatePage {    
+class BookPage extends TemplatePage {    
 
-    BookPage(Booking booking) {        
+    BookPage(Booking booking) {
         setDefaultModel new CompoundPropertyModel(booking)
         add new Label("hotel.name")
         add new Label("hotel.address")
@@ -31,10 +31,10 @@ public class BookPage extends TemplatePage {
         add new Label("hotel.zip")
         add new Label("hotel.country")
         add new Label("hotel.price")
-        add new BookingForm("form", booking)
+        add(new BookingForm("form", booking))
     }
 
-    private static class BookingForm extends Form {
+    static class BookingForm extends Form {
 
         def static bedOptions = ["One king-sized bed", "Two double beds", "Three beds"]
         def static bedValues = [1, 2, 3]
@@ -43,7 +43,7 @@ public class BookPage extends TemplatePage {
         def static monthValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         def static yearValues = [2006, 2007, 2008, 2009, 2010]
 
-        Booking booking;
+        def booking
 
         BookingForm(id, booking) {
             super(id)
@@ -52,7 +52,7 @@ public class BookPage extends TemplatePage {
             def yesterday = Calendar.getInstance()
             yesterday.add(Calendar.DAY_OF_MONTH, -1)
             checkinDate.add(new AbstractValidator() {
-                def void onValidate(IValidatable v) {
+                void onValidate(IValidatable v) {
                     def date = v.value
                     if (date.before(yesterday.time)) {
                         v.error(new ValidationError().setMessage("Check in date must be a future date"))
@@ -62,7 +62,7 @@ public class BookPage extends TemplatePage {
             add new EditBorder("checkinDateBorder", checkinDate)
             def checkoutDate = new DateField("checkoutDate")
             checkoutDate.add(new AbstractValidator() {
-                def void onValidate(IValidatable v) {
+                void onValidate(IValidatable v) {
                     if (checkinDate.valid) {
                         def date = v.value
                         if(date.before(checkinDate.date)) {
@@ -73,19 +73,19 @@ public class BookPage extends TemplatePage {
             }).setRequired(true)
             add new EditBorder("checkoutDateBorder", checkoutDate)
             def bedsChoice = new DropDownChoice("beds", bedValues, new IChoiceRenderer() {
-                def Object getDisplayValue(Object o) {
+                Object getDisplayValue(Object o) {
                     bedOptions[o - 1]
                 }
-                def String getIdValue(Object o, int index) {
+                String getIdValue(Object o, int index) {
                     o.toString()
                 }
             }).setRequired(true)
             add new EditBorder("bedsBorder", bedsChoice)
             RadioChoice smokingChoice = new RadioChoice("smoking", smokingValues, new IChoiceRenderer() {
-                public Object getDisplayValue(Object o) {
+                Object getDisplayValue(Object o) {
                     o ? "Smoking" : "Non Smoking"
                 }
-                public String getIdValue(Object o, int index) {
+                String getIdValue(Object o, int index) {
                     o.toString()
                 }
             })
@@ -95,10 +95,10 @@ public class BookPage extends TemplatePage {
             def creditCardExpiryBorder = new EditBorder("creditCardExpiryBorder")
             add creditCardExpiryBorder
             creditCardExpiryBorder.add(new DropDownChoice("creditCardExpiryMonth", monthValues, new IChoiceRenderer() {
-                def Object getDisplayValue(Object o) {
+                Object getDisplayValue(Object o) {
                     monthOptions[o - 1]
                 }
-                def String getIdValue(Object o, int index) {
+                String getIdValue(Object o, int index) {
                     return o.toString()
                 }
             }))
@@ -107,7 +107,7 @@ public class BookPage extends TemplatePage {
             add new BookmarkablePageLink("cancel", MainPage.class)
         }
         
-        def void onSubmit() {
+        void onSubmit() {
             setResponsePage new ConfirmPage(booking)
         }
     }

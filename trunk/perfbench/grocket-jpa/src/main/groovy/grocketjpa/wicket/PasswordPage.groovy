@@ -9,17 +9,17 @@ import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.Model
 import grocketjpa.entity.User
 
-public class PasswordPage extends TemplatePage {
+class PasswordPage extends TemplatePage {
 
-    public PasswordPage() {
+    PasswordPage() {
         add new PasswordForm("form", session.user)
     }
 
-    private static class PasswordForm extends Form {
+    static class PasswordForm extends Form {
 
-        def user    
+        User user
 
-        public PasswordForm(String id, User user) {
+        public PasswordForm(id, user) {
             super(id)
             this.user = user
             setDefaultModel new CompoundPropertyModel(user)
@@ -31,7 +31,7 @@ public class PasswordPage extends TemplatePage {
             add new BookmarkablePageLink("cancel", MainPage.class)
         }
         
-        def void onSubmit() {
+        void onSubmit() {
             requestCycle.entityManager.merge(user)
             session.info("Password updated")
             setResponsePage MainPage.class

@@ -13,19 +13,19 @@ import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.Model
 import grocketjpa.entity.User
 
-public class RegisterPage extends WebPage {
+class RegisterPage extends WebPage {
 
-    public RegisterPage() {
+    RegisterPage() {
         add new RegisterForm("form")
         statelessHint = true
     }
 
-    private static class RegisterForm extends StatelessForm {
+    static class RegisterForm extends StatelessForm {
 
         User user = new User()
         FormComponent username
 
-        public RegisterForm(String id) {
+        RegisterForm(id) {
             super(id)            
             setModel new CompoundPropertyModel(user)
             username = new TextField("username").setRequired(true)
@@ -39,7 +39,7 @@ public class RegisterPage extends WebPage {
             add new BookmarkablePageLink("cancel", HomePage.class)
         }
         
-        def void onSubmit() {
+        void onSubmit() {
             def em = JpaRequestCycle.get().entityManager
             def query = em.createQuery("select u.username from User u where u.username = :username")
             query.setParameter("username", user.username)

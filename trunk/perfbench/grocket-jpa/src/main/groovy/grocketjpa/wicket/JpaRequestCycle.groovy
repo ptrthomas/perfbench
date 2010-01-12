@@ -14,7 +14,7 @@ class JpaRequestCycle extends WebRequestCycle {
     EntityManager em
     boolean endConversation
 
-    public static JpaRequestCycle get() {
+    static JpaRequestCycle get() {
         return RequestCycle.get()
     }
 
@@ -22,7 +22,7 @@ class JpaRequestCycle extends WebRequestCycle {
         super(application, request, response)
     }
 
-    def EntityManager getEntityManager() {
+    EntityManager getEntityManager() {
         if (em == null) {
             def emf = application.entityManagerFactory
             em = emf.createEntityManager()
@@ -31,7 +31,7 @@ class JpaRequestCycle extends WebRequestCycle {
         return em
     }
     
-    def void onEndRequest() {
+    void onEndRequest() {
         super.onEndRequest()
         if (em != null) {
             if (em.transaction.active) {
@@ -44,7 +44,7 @@ class JpaRequestCycle extends WebRequestCycle {
         }
     }
     
-    def Page onRuntimeException(Page page, RuntimeException e) {
+    Page onRuntimeException(Page page, RuntimeException e) {
         if (em != null) {
             if (em.transaction.active) {
                 em.transaction.rollback()
@@ -58,7 +58,7 @@ class JpaRequestCycle extends WebRequestCycle {
         return super.onRuntimeException(page, e)
     }
 
-    public endConversation() {
+    def endConversation() {
         endConversation = true
     }
 

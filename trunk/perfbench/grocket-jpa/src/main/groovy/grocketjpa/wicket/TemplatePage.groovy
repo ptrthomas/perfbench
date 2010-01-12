@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 
 class TemplatePage extends WebPage {
 
-    def static final logger = LoggerFactory.getLogger(TemplatePage.class)
+    static final logger = LoggerFactory.getLogger(TemplatePage.class)
 
     TemplatePage() {
         add new Label("userName", new PropertyModel(this, "session.user.name"))
@@ -18,15 +18,15 @@ class TemplatePage extends WebPage {
         add new BookmarkablePageLink("logout", LogoutPage.class)
     }
 
-    public EntityManager getEntityManager() {
+    EntityManager getEntityManager() {
         return requestCycle.entityManager
     }
 
-    def endConversation() {
+    void endConversation() {
         requestCycle.endConversation()
     }
 
-    def loadBookings() {
+    void loadBookings() {
         def query = entityManager.createQuery("select b from Booking b"
                 + " where b.user.username = :username order by b.checkinDate")
         query.setParameter("username", session.user.username)
