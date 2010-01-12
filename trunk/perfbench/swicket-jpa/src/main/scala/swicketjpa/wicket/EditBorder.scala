@@ -38,10 +38,11 @@ class EditBorder(id: String) extends Border(id) {
       override def beforeRender(c: Component) = {
         super.beforeRender(c)
         val model = c.getInnermostModel()
-        if (model != null && model.isInstanceOf[CompoundPropertyModel[T]]) {
-          val clazz = model.getClass().asInstanceOf[Class[T]]
-          if (clazz.isAnnotationPresent(classOf[Entity])) {
-            fc.add(getValidator(clazz, fc.getId()))
+        if (model != null && model.isInstanceOf[CompoundPropertyModel[_]]) {
+          val cpm = model.asInstanceOf[CompoundPropertyModel[AnyRef]]
+          val clazz = cpm.getObject.getClass          
+          if (clazz.isAnnotationPresent(classOf[Entity])) {            
+            fc.add(getValidator[T](clazz, fc.getId()))
           }
         }
       }
@@ -63,7 +64,7 @@ class EditBorder(id: String) extends Border(id) {
     }
   }
 
-  def getValidator[T](clazz: Class[T], expression: String) = {
+  def getValidator[T](clazz: Class[_], expression: String) = {
     new IValidator[T]() {
       override def validate(v: IValidatable[T]) = {
         var cv = EditBorder.classValidatorCache.get(clazz)
@@ -71,7 +72,7 @@ class EditBorder(id: String) extends Border(id) {
           cv = new ClassValidator(clazz)
           EditBorder.classValidatorCache.put(clazz, cv)
         }
-        val invalidValues = cv.getPotentialInvalidValues(expression, v.getValue())
+        val invalidValues = cv.getPotentialInvalidValues(expression, v.getValue())        
         if (invalidValues.length > 0) {
           val message = invalidValues(0).getMessage()
           v.error(new ValidationError().setMessage(message))
