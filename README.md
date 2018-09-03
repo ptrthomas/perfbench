@@ -1,8 +1,8 @@
 # Overview
 
-The Hotel Booking application is a sample application that is part of the [http://seamframework.org/ Seam Framework] distribution.  A high level listing of features can be found [http://docs.jboss.org/seam/2.1.2/reference/en-US/html/tutorial.html#booking here].
+The Hotel Booking application is a sample application that is part of the [Seam Framework](http://seamframework.org/) distribution.  A high level listing of features can be found [here](http://docs.jboss.org/seam/2.1.2/reference/en-US/html/tutorial.html#booking).
 
-This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, which has been slightly adapted for [http://code.google.com/p/perfbench PerfBench], and can be used as a reference for implementers as well as reviewers of the implementations.
+This document outlines the functionality, specifications and screen-by-screen break-down of the Hotel Booking application, which has been slightly adapted for [PerfBench](http://code.google.com/p/perfbench), and can be used as a reference for implementers as well as reviewers of the implementations.
 
 ## Reference Application
 
@@ -122,7 +122,7 @@ This document outlines the functionality, specifications and screen-by-screen br
   * both buttons are form submit buttons
 
 ## JMeter Test Plan Notes
-  * open the booking.jmx file in JMeter to see the structure [http://code.google.com/p/perfbench/source/browse/trunk/perfbench/seam-jpa/src/test/jmeter (example)]
+  * open the booking.jmx file in JMeter to see the structure [(example)](perfbench/seam-jpa/src/test/jmeter)
   * login and logout happens only once for each virtual user
   * the main "loop" is run 10 times (per user)
   * additional resources part of the web-pages (e.g CSS, JS and images) are ignored
